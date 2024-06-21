@@ -26,7 +26,7 @@
                 const openDialogButton = document.getElementById('open-dialog-btn');
                 const openRulesConditions = document.getElementById('rulesConditions');
                 openDialogButton.addEventListener('click', openDialog);
-                openRulesConditions.addEventListener('click', window.location.href = 'RulesConditions.html');     
+                openRulesConditions.addEventListener('click', rulesConditionsWindow);     
             }
         }
     }
@@ -66,5 +66,11 @@
             currentDialog = null;
             console.log('Dialog closed.');
         }
+    }
+
+    function rulesConditionsWindow() {
+        if (!window.location.pathname.endsWith('RulesConditions.html')) {
+            window.location.href = 'RulesConditions.html';
+    }
     }
   })();
