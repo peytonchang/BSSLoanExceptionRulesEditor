@@ -70,7 +70,7 @@
 
     function rulesConditionsWindow() {
         if (!window.location.pathname.endsWith('RulesConditions.html')) {
-            window.location.href = 'RulesConditions.html';
+            window.location.href = 'RuleConditions.html';
     }
     }
   })();

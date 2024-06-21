@@ -91,7 +91,7 @@ module.exports = async (env, options) => {
       }),
       new HtmlWebpackPlugin({
         filename: "RulesConditions.html",
-        template: "./src/taskpane/RulesConditions.html",
+        template: "./src/taskpane/RuleConditions.html",
         chunks: [],  // No specific chunks needed for dialog
       }),
     ],
