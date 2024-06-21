@@ -6,17 +6,17 @@
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="DialogApiAddInSample"/>
   <Description DefaultValue="A template to get started."/>
-  <IconUrl DefaultValue="https://peytonchang.github.io/DialogApiAddInRepo/assets/icon-32.png"/>
-  <HighResolutionIconUrl DefaultValue="https://peytonchang.github.io/DialogApiAddInRepo/assets/icon-64.png"/>
-  <SupportUrl DefaultValue="https://peytonchang.github.io/DialogApiAddInRepo/help"/>
+  <IconUrl DefaultValue="https://peytonchang.github.io/BSSLoanExceptionRulesEditor/assets/icon-32.png"/>
+  <HighResolutionIconUrl DefaultValue="https://peytonchang.github.io/BSSLoanExceptionRulesEditor/assets/icon-64.png"/>
+  <SupportUrl DefaultValue="https://peytonchang.github.io/BSSLoanExceptionRulesEditor/help"/>
   <AppDomains>
-    <AppDomain>https://peytonchang.github.io/DialogApiAddInRepo</AppDomain>
+    <AppDomain>https://peytonchang.github.io/BSSLoanExceptionRulesEditor</AppDomain>
   </AppDomains>
   <Hosts>
     <Host Name="Workbook"/>
   </Hosts>
   <DefaultSettings>
-    <SourceLocation DefaultValue="https://peytonchang.github.io/DialogApiAddInRepo/src/dialog.html"/>
+    <SourceLocation DefaultValue="https://peytonchang.github.io/BSSLoanExceptionRulesEditor/src/dialog.html"/>
   </DefaultSettings>
   <Permissions>ReadWriteDocument</Permissions>
   <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
@@ -62,15 +62,15 @@
     </Hosts>
     <Resources>
       <bt:Images>
-        <bt:Image id="Icon.16x16" DefaultValue="https://peytonchang.github.io/DialogApiAddInRepo/assets/icon-16.png"/>
-        <bt:Image id="Icon.32x32" DefaultValue="https://peytonchang.github.io/DialogApiAddInRepo/assets/icon-32.png"/>
-        <bt:Image id="Icon.80x80" DefaultValue="https://peytonchang.github.io/DialogApiAddInRepo/assets/icon-80.png"/>
+        <bt:Image id="Icon.16x16" DefaultValue="https://peytonchang.github.io/BSSLoanExceptionRulesEditor/assets/icon-16.png"/>
+        <bt:Image id="Icon.32x32" DefaultValue="https://peytonchang.github.io/BSSLoanExceptionRulesEditor/assets/icon-32.png"/>
+        <bt:Image id="Icon.80x80" DefaultValue="https://peytonchang.github.io/BSSLoanExceptionRulesEditor/assets/icon-80.png"/>
       </bt:Images>
       <bt:Urls>
         <bt:Url id="GetStarted.LearnMoreUrl" DefaultValue="https://go.microsoft.com/fwlink/?LinkId=276812"/>
-        <bt:Url id="Commands.Url" DefaultValue="https://peytonchang.github.io/DialogApiAddInRepo/src/commands/commands.html"/>
-        <bt:Url id="Taskpane.Url" DefaultValue="https://peytonchang.github.io/DialogApiAddInRepo/src/taskpane/taskpane.html"/>
-        <bt:Url id="Home.Url" DefaultValue="https://peytonchang.github.io/DialogApiAddInRepo/src/taskpane/home.html"/>
+        <bt:Url id="Commands.Url" DefaultValue="https://peytonchang.github.io/BSSLoanExceptionRulesEditor/src/commands/commands.html"/>
+        <bt:Url id="Taskpane.Url" DefaultValue="https://peytonchang.github.io/BSSLoanExceptionRulesEditor/src/taskpane/taskpane.html"/>
+        <bt:Url id="Home.Url" DefaultValue="https://peytonchang.github.io/BSSLoanExceptionRulesEditor/src/taskpane/home.html"/>
       </bt:Urls>
       <bt:ShortStrings>
         <bt:String id="GetStarted.Title" DefaultValue="Get started with your sample add-in!"/>
