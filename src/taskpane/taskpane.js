@@ -24,10 +24,9 @@
             } else {
                 // Ensure the open-dialog-btn exists before adding an event listener
                 const openDialogButton = document.getElementById('open-dialog-btn');
-                if (openDialogButton) {
-                    openDialogButton.addEventListener('click', openDialog);
-                    console.log("made it here 5");
-                }
+                const openRulesConditions = document.getElementById('rulesConditions');
+                openDialogButton.addEventListener('click', openDialog);
+                openRulesConditions.addEventListener('click', window.location.href = 'RulesConditions.html');     
             }
         }
     }
@@ -41,10 +40,6 @@
             localStorage.setItem('loggedIn', 'true');
             window.location.href = 'home.html';
             checkLoginState();
-            // const openDialogButton = document.getElementById('open-dialog-btn');
-            // if (openDialogButton) {
-            //     openDialogButton.addEventListener('click', openDialog);
-            // }
         } else {
             console.log("made it here 4");
             document.getElementById('errorMessage').style.display = 'block';
@@ -64,44 +59,6 @@
                 currentDialog.addEventHandler(Office.EventType.DialogEventReceived, handleDialogEvent);
             }
         });
-    }
-  
-    function processMessageFromDialog(arg) {
-        const message = arg.message;
-        console.log('Message from dialog: ', message);
-  
-        if (message === 'capture') {
-            Excel.run(async (context) => {
-                console.log('Processing capture request');
-                const sheet = context.workbook.worksheets.getActiveWorksheet();
-                const cell = sheet.getRange("A1");
-                cell.load("values");
-                await context.sync();
-                const cellValue = cell.values[0][0];
-                console.log('Captured value from A1: ', cellValue);
-                // Send the captured value back to the dialog
-                if (currentDialog) {
-                    console.log('Sending value to dialog: ', cellValue);
-                    console.dir(currentDialog);
-                    currentDialog.messageChild(JSON.stringify({ value: cellValue }));
-                } else {
-                    console.error('No dialog instance found.');
-                }
-            }).catch((error) => {
-                console.error('Error capturing value from A1: ', error);
-            });
-        } else if (message.startsWith('paste:')) {
-            const valueToPaste = message.split(':')[1];
-            Excel.run(async (context) => {
-                console.log('Processing paste request with value: ', valueToPaste);
-                const sheet = context.workbook.worksheets.getActiveWorksheet();
-                const cell = sheet.getRange("A1");
-                cell.values = [[valueToPaste]];
-                await context.sync();
-            }).catch((error) => {
-                console.error('Error pasting value to A1: ', error);
-            });
-        }
     }
   
     function handleDialogEvent(event) {
