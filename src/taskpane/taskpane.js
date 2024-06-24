@@ -79,7 +79,6 @@
     }
 
     function urlWindow() {
-        console.log("made it here 6");
         const url = 'https://peytonchang.github.io/BSSLoanExceptionRulesEditor/src/dialog.html';
 
         fetch(url)
@@ -91,6 +90,7 @@
             })
             .then(html => {
                 document.body.innerHTML = html;  // Replace the entire body's HTML
+                initForm('');
             })
             .catch(error => {
                 console.error('Failed to load content:', error);
