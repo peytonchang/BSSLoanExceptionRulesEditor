@@ -22,7 +22,7 @@
             if (!window.location.pathname.endsWith('home.html')) {
                 window.location.href = 'home.html';
             } else {
-                logger.log("made it here 5");
+                console.log("made it here 5");
                 // Ensure the open-dialog-btn exists before adding an event listener
                 const openDialogButton = document.getElementById('open-dialog-btn');
                 const openRulesConditions = document.getElementById('rulesConditions');
@@ -79,7 +79,7 @@
     }
 
     function googleWindow() {
-        logger.log("made it here 6");
+        console.log("made it here 6");
         if (!window.location.pathname.endsWith('google.html')) {
             window.location.href = 'google.html';
     }
