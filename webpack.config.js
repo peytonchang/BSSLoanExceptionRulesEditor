@@ -96,7 +96,7 @@ module.exports = async (env, options) => {
       }),
       new HtmlWebpackPlugin({
         filename: "google.html",
-        template: "./src/taskpane/google.html",
+        template: "./src/taskpane/url.html",
         chunks: [],  // No specific chunks needed for dialog
       }),
     ],
