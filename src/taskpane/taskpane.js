@@ -90,7 +90,7 @@
                 return response.text();
             })
             .then(html => {
-                logger.log("made it here 7");
+                console.log("made it here 7");
                 document.body.innerHTML = html;  // Replace the entire body's HTML
             })
             .catch(error => {
