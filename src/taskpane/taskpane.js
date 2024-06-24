@@ -75,13 +75,28 @@
     function rulesConditionsWindow() {
         if (!window.location.pathname.endsWith('RulesConditions.html')) {
             window.location.href = 'RuleConditions.html';
-    }
+        }
     }
 
     function urlWindow() {
-        console.log("made it here 6");
-        if (!window.location.pathname.endsWith('url.html')) {
-            window.location.href = 'url.html';
+        const url = 'https://peytonchang.github.io/BSSLoanExceptionRulesEditor/src/dialog.html';
+
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.text();
+            })
+            .then(html => {
+                const container = document.getElementById('content-container');
+                container.innerHTML = html;  // Inject the HTML into the container
+            })
+            .catch(error => {
+                console.error('Failed to load content:', error);
+                document.getElementById('content-container').innerHTML = '<p>Error loading content.</p>';
+            });
     }
-    }
+
+
   })();
