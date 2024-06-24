@@ -80,27 +80,33 @@
 
     function urlWindow() {
         console.log("made it here 6");
-        const url = 'https://peytonchang.github.io/BSSLoanExceptionRulesEditor/src/dialog.html';
+    //     const url = 'https://peytonchang.github.io/BSSLoanExceptionRulesEditor/src/dialog.html';
 
-        fetch(url)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.text();
-            })
-            .then(html => {
-                console.log("made it here 7");
-                document.body.innerHTML = html;  // Replace the entire body's HTML
-                if (typeof initForm === 'function') {  // Check if the function exists
-                    console.log("made it here 8");
-                    initForm('');  // Explicitly call the function
-                }
-            })
-            .catch(error => {
-                console.error('Failed to load content:', error);
-                document.body.innerHTML = '<p>Error loading content.</p>';
-            });
+    //     fetch(url)
+    //         .then(response => {
+    //             if (!response.ok) {
+    //                 throw new Error('Network response was not ok');
+    //             }
+    //             return response.text();
+    //         })
+    //         .then(html => {
+    //             console.log("made it here 7");
+    //             document.body.innerHTML = html;  // Replace the entire body's HTML
+    //             if (typeof initForm === 'function') {  // Check if the function exists
+    //                 console.log("made it here 8");
+    //                 initForm('');  // Explicitly call the function
+    //             }
+    //         })
+    //         .catch(error => {
+    //             console.error('Failed to load content:', error);
+    //             document.body.innerHTML = '<p>Error loading content.</p>';
+    //         });
+
+        if (!window.location.pathname.endsWith('dialog.html')) {
+            window.location.href = 'dialog.html';
+        }
+
+
     }
 
 
