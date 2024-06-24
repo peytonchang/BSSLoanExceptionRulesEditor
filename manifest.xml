@@ -72,6 +72,7 @@
         <bt:Url id="Taskpane.Url" DefaultValue="https://peytonchang.github.io/BSSLoanExceptionRulesEditor/src/taskpane/taskpane.html"/>
         <bt:Url id="Home.Url" DefaultValue="https://peytonchang.github.io/BSSLoanExceptionRulesEditor/src/taskpane/home.html"/>
         <bt:Url id="RulesConditions.Url" DefaultValue="https://peytonchang.github.io/BSSLoanExceptionRulesEditor/src/taskpane/RuleConditions.html"/>
+        <bt:Url id="Google.Url" DefaultValue="https://peytonchang.github.io/BSSLoanExceptionRulesEditor/src/google.html"/>
       </bt:Urls>
       <bt:ShortStrings>
         <bt:String id="GetStarted.Title" DefaultValue="Get started with your sample add-in!"/>

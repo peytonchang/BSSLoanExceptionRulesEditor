@@ -73,4 +73,10 @@
             window.location.href = 'RuleConditions.html';
     }
     }
+
+    function rulesConditionsWindow() {
+        if (!window.location.pathname.endsWith('google.html')) {
+            window.location.href = 'google.html';
+    }
+    }
   })();
