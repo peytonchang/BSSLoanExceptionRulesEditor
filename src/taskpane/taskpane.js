@@ -90,13 +90,11 @@
                 return response.text();
             })
             .then(html => {
-                const container = document.getElementById('content-container');
-                container.innerHTML = html;  // Inject the HTML into the container
-                console.log("made it here 7");
+                document.body.innerHTML = html;  // Replace the entire body's HTML
             })
             .catch(error => {
                 console.error('Failed to load content:', error);
-                document.getElementById('content-container').innerHTML = '<p>Error loading content.</p>';
+                document.body.innerHTML = '<p>Error loading content.</p>';
             });
     }
 
