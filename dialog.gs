@@ -1,0 +1,1 @@
+$l: BSLP_LoanExceptionServiceInputData(mortgageType == "CONV", loanToValueRatio > 80, propertyState != "CA", (insuranceEscrowsWaived || taxEscrowsWaived))
