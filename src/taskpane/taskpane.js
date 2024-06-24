@@ -92,6 +92,10 @@
             .then(html => {
                 console.log("made it here 7");
                 document.body.innerHTML = html;  // Replace the entire body's HTML
+                if (typeof initForm === 'function') {  // Check if the function exists
+                    console.log("made it here 8");
+                    initForm('');  // Explicitly call the function
+                }
             })
             .catch(error => {
                 console.error('Failed to load content:', error);
