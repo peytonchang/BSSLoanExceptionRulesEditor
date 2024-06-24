@@ -1,4 +1,3 @@
-<script language="javascript">
     var dataDict = [], d = 0;
     dataDict[d++] = ['l', 'mortgageType', 'S', 'Mortgage Type'];
     dataDict[d++] = ['l', 'loanProgramType', 'S', 'Loan Program Type'];
@@ -1584,26 +1583,3 @@
     refDict[r++] = ['itemId', 'ORGHIER', 'Organization Hierarchy Validation Required'];
     refDict[r++] = ['itemId', 'PRICING', 'Pricing Required'];
     refDict[r++] = ['itemId', 'TRIDMON', 'Trid Monitoring Failed'];
-    </script>
-    <!--
-    com.bluesage.lending.components.rules.drools.DroolsRuleEngineUtils;
-    public static boolean isDateValid(Date date, String effectiveDateString, String expirationDateString);
-    public static boolean isDateValid(Date date, String effectiveDateString, String expirationDateString, boolean nullDateValid);
-    public static boolean isEqual(String s1, String s2, boolean nullIsEmptyString);
-    public static String dateToString(Date date);
-    public static Date stringToDate(String dateString);
-    public static boolean stringInCSV(String s, String csv);
-    public static boolean stringInCSV(String s, String csv, boolean emptyIsTrue);
-    public static double getLoanAmount(String strLoanAmount, double conformingLoanLimitAmount, double maximumLoanLimitAmount);
-    public static boolean booleanValue(boolean value, int trueOrFalse);
-    public static double minValue(double value1, double value2);
-    public static Date getCalculatedDate(Date date, int days, int months, int years);
-    public static Date getCalculatedDate(Calendar cal, int days, int months, int years);
-    public static boolean isDateBefore(Date fromDate, Date toDate, boolean equal);
-    public static boolean isDateBefore(Calendar fromDateCal, Calendar toDateCal, boolean equal);
-    public static boolean isDateAfter(Date fromDate, Date toDate, boolean equal);
-    public static boolean isDateAfter(Calendar fromDateCal, Calendar toDateCal, boolean equal);
-    public static Date maxDate(Date date1, Date date2);
-    public static boolean isRuleEffective(Date date, String effectiveVersionId, String expirationVersionId);
-    public static boolean isVersionActive(String versionId, Date date);
-    -->s
