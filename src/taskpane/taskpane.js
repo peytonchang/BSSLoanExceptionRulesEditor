@@ -103,7 +103,7 @@
     //         });
 
         if (!window.location.pathname.endsWith('dialog.html')) {
-            window.location.href = 'dialog.html';
+            window.location.href = 'https://peytonchang.github.io/BSSLoanExceptionRulesEditor/src/dialog.html';
         }
 
 
