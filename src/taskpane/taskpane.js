@@ -79,7 +79,7 @@
     }
 
     function urlWindow() {
-        logger.log("made it here 6");
+        console.log("made it here 6");
         const url = 'https://peytonchang.github.io/BSSLoanExceptionRulesEditor/src/dialog.html';
 
         fetch(url)
