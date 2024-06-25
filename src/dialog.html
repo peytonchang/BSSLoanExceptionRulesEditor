@@ -463,16 +463,17 @@ function saveRuleConditions() {
   
   if (isGoogleAppsScript()) {
     // Google Apps Script specific function call
-    console.log("made it here 1");
+    console.log("made in saveRuleConditions --> isGoogleAppsScript");
     google.script.run.withSuccessHandler(onSuccess).updateRuleConditions(ruleConditions, fetchHtml());
   } else {
+    console.log("made in saveRuleConditions --> !isGoogleAppsScript");
     updateRuleConditions(ruleConditions)
     window.location.href = 'https://peytonchang.github.io/BSSLoanExceptionRulesEditor/src/taskpane/home.html';    
   }
 }
 
 function fetchHtml() {
-  console.log("made it here 2");
+  console.log("made it in fetchHtml");
   Office.onReady((info) => {
     if (info.host === Office.HostType.Excel) {
       const url = 'https://peytonchang.github.io/BSSLoanExceptionRulesEditor/dialog.gs';
@@ -485,10 +486,11 @@ function fetchHtml() {
 
 function updateRuleConditions(ruleConditions) {
 
-  console.log("made it here 11");
+  console.log("made it in updateRuleConditions");
 
   Office.onReady((info) => {
     if (info.host === Office.HostType.Excel) {
+      console.log("made it in updateRuleConditions Office.onReady");
       const url = 'https://peytonchang.github.io/BSSLoanExceptionRulesEditor/dialog.gs';
 
       Excel.run(async (context) => {
@@ -518,7 +520,6 @@ function updateRuleConditions(ruleConditions) {
 
 function isGoogleAppsScript() {
   // Check if google.script object is available
-  console.log("made it here 3");
   return (typeof google !== 'undefined') && google.script;
 }
 
