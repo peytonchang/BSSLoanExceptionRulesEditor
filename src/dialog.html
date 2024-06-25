@@ -460,7 +460,18 @@ function saveRuleConditions() {
     ruleConditions += ((ruleConditions != '') ? '<|>' : '') + selected.options[i].value;
   }
   
-  google.script.run.withSuccessHandler(onSuccess).updateRuleConditions(ruleConditions);
+  if (isGoogleAppsScript()) {
+    // Google Apps Script specific function call
+    google.script.run.withSuccessHandler(onSuccess).updateRuleConditions(ruleConditions);
+  } else {
+    // Excel Add-In specific function call
+    updateRuleConditions(ruleConditions);
+  }
+}
+
+function isGoogleAppsScript() {
+  // Check if google.script object is available
+  return (typeof google !== 'undefined') && google.script;
 }
 
 function listbox_move(listID, direction) {
