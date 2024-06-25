@@ -470,12 +470,21 @@ function saveRuleConditions() {
       if (info.host === Office.HostType.Excel) {
         console.log("made it here 10");
         // It's safe to use the Excel object now
-        const bool = updateRuleConditions(ruleConditions)
-        console.log("bool value: " + bool);
-        if (bool) {
-          console.log("made it here 13");
-          window.location.href = 'https://peytonchang.github.io/BSSLoanExceptionRulesEditor/src/taskpane/home.html';
-        }
+        updateRuleConditions(ruleConditions).then(result => {
+          if (!window.location.pathname.endsWith('home.html')) {
+            window.location.href = 'https://peytonchang.github.io/BSSLoanExceptionRulesEditor/src/taskpane/home.html';
+          }
+        }).catch(error => {
+          console.error("Error:", error);
+        })
+
+
+        // const bool = updateRuleConditions(ruleConditions)
+        // console.log("bool value: " + bool);
+        // if (bool) {
+        //   console.log("made it here 13");
+        //   window.location.href = 'https://peytonchang.github.io/BSSLoanExceptionRulesEditor/src/taskpane/home.html';
+        // }
       
     }
     });
