@@ -466,17 +466,17 @@ function saveRuleConditions() {
     console.log("made it here 1");
     google.script.run.withSuccessHandler(onSuccess).updateRuleConditions(ruleConditions, fetchHtml());
   } else {
-    Office.onReady((info) => {
-    if (info.host === Office.HostType.Excel) {
-      console.log("made it here 10");
-      // It's safe to use the Excel object now
-      if(updateRuleConditions(ruleConditions) === true) {
-        console.log("made it here 12");
-        if (!window.location.pathname.endsWith('home.html')) {
-          console.log("made it here 13");
+      Office.onReady((info) => {
+      if (info.host === Office.HostType.Excel) {
+        console.log("made it here 10");
+        // It's safe to use the Excel object now
+          console.log("made it here 12");
+          const bool = updateRuleConditions(ruleConditions)
+          if (bool) {
+            console.log("made it here 13");
             window.location.href = 'https://peytonchang.github.io/BSSLoanExceptionRulesEditor/src/taskpane/home.html';
-        }
-      }
+          }
+      
     }
     });
 
