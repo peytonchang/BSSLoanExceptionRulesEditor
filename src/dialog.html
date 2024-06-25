@@ -471,7 +471,9 @@ function saveRuleConditions() {
       console.log("made it here 10");
       // It's safe to use the Excel object now
       if(updateRuleConditions(ruleConditions)) {
+        console.log("made it here 12");
         if (!window.location.pathname.endsWith('home.html')) {
+          console.log("made it here 13");
             window.location.href = 'https://peytonchang.github.io/BSSLoanExceptionRulesEditor/src/taskpane/home.html';
         }
       }
