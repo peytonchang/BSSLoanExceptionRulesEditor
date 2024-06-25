@@ -470,7 +470,7 @@ function saveRuleConditions() {
     if (info.host === Office.HostType.Excel) {
       console.log("made it here 10");
       // It's safe to use the Excel object now
-      if(updateRuleConditions(ruleConditions)) {
+      if(updateRuleConditions(ruleConditions) === true) {
         console.log("made it here 12");
         if (!window.location.pathname.endsWith('home.html')) {
           console.log("made it here 13");
