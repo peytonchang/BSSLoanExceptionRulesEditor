@@ -34,7 +34,7 @@
   
     function login() {
         const enteredPassword = document.getElementById('passwordInput').value;
-        const universalPassword = "BlueSage123";
+        const universalPassword = "bluesage123";
 
         if (enteredPassword === universalPassword) {
             localStorage.setItem('loggedIn', 'true');
@@ -79,7 +79,4 @@
         }
     }
 
-
-    
-      
   })();
