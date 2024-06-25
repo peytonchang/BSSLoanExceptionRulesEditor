@@ -9,7 +9,6 @@
 
     function checkLoginState() {
         const loggedIn = localStorage.getItem('loggedIn') === 'true';
-        console.log("loggedIn val: " + loggedIn)
         if (!loggedIn) {
             // Ensure the loginButton exists before adding an event listener
             const loginButton = document.getElementById('loginButton');
