@@ -466,12 +466,8 @@ function saveRuleConditions() {
     console.log("made it here 1");
     google.script.run.withSuccessHandler(onSuccess).updateRuleConditions(ruleConditions, fetchHtml());
   } else {
-    const bool = updateRuleConditions(ruleConditions)
-    console.log("bool value: " + bool);
-    if (bool) {
-      console.log("made it here 13");
-      window.location.href = 'https://peytonchang.github.io/BSSLoanExceptionRulesEditor/src/taskpane/home.html';
-    }
+    updateRuleConditions(ruleConditions)
+    window.location.href = 'https://peytonchang.github.io/BSSLoanExceptionRulesEditor/src/taskpane/home.html';    
   }
 }
 
@@ -512,7 +508,6 @@ function updateRuleConditions(ruleConditions) {
       }).catch(error => {
           console.error('Error:', error);
       });
-      console.log("made it here 14");
       return true;
 
     }    
