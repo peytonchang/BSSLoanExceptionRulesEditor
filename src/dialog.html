@@ -468,6 +468,7 @@ function saveRuleConditions() {
   } else {
     Office.onReady((info) => {
     if (info.host === Office.HostType.Excel) {
+      console.log("made it here 10");
       // It's safe to use the Excel object now
       updateRuleConditions(ruleConditions);
     }
@@ -489,6 +490,8 @@ function fetchHtml() {
 }
 
 function updateRuleConditions(ruleConditions) {
+
+  console.log("made it here 11");
 
   Office.onReady((info) => {
     if (info.host === Office.HostType.Excel) {
