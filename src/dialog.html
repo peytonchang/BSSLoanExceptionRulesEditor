@@ -463,6 +463,7 @@ function saveRuleConditions() {
   
   if (isGoogleAppsScript()) {
     // Google Apps Script specific function call
+    console.log("made it here 1");
     google.script.run.withSuccessHandler(onSuccess).updateRuleConditions(ruleConditions, fetchHtml());
   } else {
     Office.onReady((info) => {
@@ -476,6 +477,7 @@ function saveRuleConditions() {
 }
 
 function fetchHtml() {
+  console.log("made it here 2");
   Office.onReady((info) => {
     if (info.host === Office.HostType.Excel) {
       const url = 'https://peytonchang.github.io/BSSLoanExceptionRulesEditor/dialog.gs';
@@ -520,6 +522,7 @@ function updateRuleConditions(ruleConditions) {
 
 function isGoogleAppsScript() {
   // Check if google.script object is available
+  console.log("made it here 3");
   return (typeof google !== 'undefined') && google.script;
 }
 
