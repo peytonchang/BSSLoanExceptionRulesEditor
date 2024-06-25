@@ -515,14 +515,15 @@ function updateRuleConditions(ruleConditions) {
           console.error('Error:', error);
       });
 
-      // return true;
-
-    }
-    console.log("made it here 7");
-    if (!window.location.pathname.endsWith('home.html')) {
+      if (!window.location.pathname.endsWith('home.html')) {
       console.log("made it here 8");
       window.location.href = 'https://peytonchang.github.io/BSSLoanExceptionRulesEditor/src/taskpane/home.html';
+      }
+
+      return true;
+
     }
+    
   });
 
 
