@@ -511,6 +511,8 @@ function updateRuleConditions(ruleConditions) {
       }).catch(error => {
           console.error('Error:', error);
       });
+      if (!window.location.pathname.endsWith('home.html')) {
+                window.location.href = 'home.html';
 
       return true;
 
