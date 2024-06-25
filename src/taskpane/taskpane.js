@@ -11,18 +11,15 @@
         const loggedIn = localStorage.getItem('loggedIn') === 'true';
         console.log("loggedIn val: " + loggedIn)
         if (!loggedIn) {
-            console.log("made it here 1");
             // Ensure the loginButton exists before adding an event listener
             const loginButton = document.getElementById('loginButton');
             if (loginButton) {
                 loginButton.addEventListener('click', login);
             }
         } else {
-            console.log("made it here 2");
             if (!window.location.pathname.endsWith('home.html')) {
                 window.location.href = 'home.html';
             } else {
-                console.log("made it here 5");
                 // Ensure the open-dialog-btn exists before adding an event listener
                 const openDialogButton = document.getElementById('open-dialog-btn');
                 const openRulesConditions = document.getElementById('rulesConditions');
@@ -40,12 +37,10 @@
         const universalPassword = "BlueSage123";
 
         if (enteredPassword === universalPassword) {
-            console.log("made it here 3");
             localStorage.setItem('loggedIn', 'true');
             window.location.href = 'home.html';
             checkLoginState();
         } else {
-            console.log("made it here 4");
             document.getElementById('errorMessage').style.display = 'block';
         }
     }
@@ -79,29 +74,6 @@
     }
 
     function urlWindow() {
-        console.log("made it here 6");
-    //     const url = 'https://peytonchang.github.io/BSSLoanExceptionRulesEditor/src/dialog.html';
-
-    //     fetch(url)
-    //         .then(response => {
-    //             if (!response.ok) {
-    //                 throw new Error('Network response was not ok');
-    //             }
-    //             return response.text();
-    //         })
-    //         .then(html => {
-    //             console.log("made it here 7");
-    //             document.body.innerHTML = html;  // Replace the entire body's HTML
-    //             if (typeof initForm === 'function') {  // Check if the function exists
-    //                 console.log("made it here 8");
-    //                 initForm('');  // Explicitly call the function
-    //             }
-    //         })
-    //         .catch(error => {
-    //             console.error('Failed to load content:', error);
-    //             document.body.innerHTML = '<p>Error loading content.</p>';
-    //         });
-
         if (!window.location.pathname.endsWith('dialog.html')) {
             window.location.href = 'https://peytonchang.github.io/BSSLoanExceptionRulesEditor/src/dialog.html';
         }
