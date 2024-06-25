@@ -1588,23 +1588,18 @@
 
         const url = 'https://peytonchang.github.io/BSSLoanExceptionRulesEditor/dialog.gs';
         
-        Excel.run(async (context) => {
-            const sheet = context.workbook.worksheets.getActiveWorksheet();
-            const cellA1 = sheet.getRange("A1");
-    
-            // Fetch the data from the URL
-            const response = await fetch(url);
-            if (!response.ok) {
-                throw new Error('Failed to fetch data: ' + response.statusText);
-            }
-            const text = await response.text();
-    
-            // Write the fetched text to cell A1
-            cellA1.values = [[text]];
-            await context.sync();
-        }).catch(error => {
-            console.error('Error:', error);
-        });
+        const sheet = context.workbook.worksheets.getActiveWorksheet();
+        const cellA1 = sheet.getRange("A1");
+
+        // Fetch the data from the URL
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error('Failed to fetch data: ' + response.statusText);
+        }
+        const text = await response.text();
+
+        // Write the fetched text to cell A1
+        cellA1.values = [[text]];
 
         return true;
       }
