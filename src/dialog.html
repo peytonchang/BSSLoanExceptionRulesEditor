@@ -471,6 +471,10 @@ function saveRuleConditions() {
       console.log("made it here 10");
       // It's safe to use the Excel object now
       updateRuleConditions(ruleConditions);
+      if (!window.location.pathname.endsWith('home.html')) {
+        console.log("made it here 8");
+        window.location.href = 'https://peytonchang.github.io/BSSLoanExceptionRulesEditor/src/taskpane/home.html';
+      }
     }
     });
 
@@ -515,15 +519,9 @@ function updateRuleConditions(ruleConditions) {
           console.error('Error:', error);
       });
 
-      if (!window.location.pathname.endsWith('home.html')) {
-      console.log("made it here 8");
-      window.location.href = 'https://peytonchang.github.io/BSSLoanExceptionRulesEditor/src/taskpane/home.html';
-      }
-
       return true;
 
     }
-    
   });
 
 
