@@ -107,6 +107,7 @@
         }
     }
 
+
     function updateRuleConditions(ruleConditions) {
 
         const url = 'https://peytonchang.github.io/BSSLoanExceptionRulesEditor/dialog.gs';
@@ -131,8 +132,5 @@
 
         return true;
       }
-
-
-
-
+      
   })();
