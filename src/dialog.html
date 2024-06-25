@@ -470,7 +470,11 @@ function saveRuleConditions() {
     if (info.host === Office.HostType.Excel) {
       console.log("made it here 10");
       // It's safe to use the Excel object now
-      updateRuleConditions(ruleConditions);
+      if(updateRuleConditions(ruleConditions)) {
+        if (!window.location.pathname.endsWith('home.html')) {
+            window.location.href = 'https://peytonchang.github.io/BSSLoanExceptionRulesEditor/src/taskpane/home.html';
+        }
+      }
     }
     });
 
