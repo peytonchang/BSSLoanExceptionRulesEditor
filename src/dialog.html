@@ -464,8 +464,13 @@ function saveRuleConditions() {
     // Google Apps Script specific function call
     google.script.run.withSuccessHandler(onSuccess).updateRuleConditions(ruleConditions);
   } else {
-    // Excel Add-In specific function call
-    updateRuleConditions(ruleConditions);
+    Office.onReady((info) => {
+    if (info.host === Office.HostType.Excel) {
+      // It's safe to use the Excel object now
+      updateRuleConditions(ruleConditions);
+    }
+    });
+
   }
 }
 
