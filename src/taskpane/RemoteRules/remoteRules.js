@@ -12,7 +12,7 @@
         const viewInputData = document.getElementById('viewLoanInputData');
         const viewResultData = document.getElementById('viewResultsData');
 
-        getAndDisplay.addEventListener('click', test);
+        getAndDisplay.addEventListener('click', getAndDisplayLoanInputData);
         execute.addEventListener('click', executeRules);    
         viewInputData.addEventListener('click', viewLoanInputData); 
         viewResultData.addEventListener('click', viewResultsData);
@@ -23,40 +23,42 @@
             await Excel.run(async (context) => {
                 // Get the active worksheet
                 const sheet = context.workbook.worksheets.getActiveWorksheet();
-                sheet.load('name'); // Load the sheet name if you need it for debugging or logging
+                sheet.load('name'); // Optional: Load the sheet name for debugging or logging
     
-                // Get the last column and load its index
+                // Get the last column in the used range and load its index
                 const lastCol = sheet.getUsedRange().getLastColumn();
                 lastCol.load('columnIndex');
+                await context.sync();  // Ensure the last column index is loaded
     
-                // Synchronize the context to load the last column index
-                await context.sync();
-    
-                // Get the range for the first row to read the headers
+                // Get the range for the first row to read the headers and load their values
                 const headerRange = sheet.getRange("1:1");
                 headerRange.load('values');
-                await context.sync();
+                await context.sync();  // Ensure the header values are loaded
     
                 // Create a dictionary of column headers to their index
                 const dicColumn = getColumnDictionary(headerRange.values[0]);
-                const iRow = context.workbook.getSelectedRange().rowIndex;
-                context.workbook.getSelectedRange().load('rowIndex');
     
-                await context.sync();
+                // Get the currently selected range and load its row index
+                const activeRange = context.workbook.getSelectedRange();
+                activeRange.load('rowIndex');
+                await context.sync();  // Ensure the row index of the selected range is loaded
     
-                // Get values for "Loan Input Data" and "Lock" from the current row
-                const loanInputDataCell = sheet.getCell(iRow, dicColumn['Loan Input Data']);
-                const lockCell = sheet.getCell(iRow, dicColumn['Lock']);
+                // Calculate the active row index
+                const activeRow = activeRange.rowIndex;
     
+                // Load necessary cells for "Loan Input Data" and "Lock" from the current row
+                const loanInputDataCell = sheet.getCell(activeRow, dicColumn['Loan Input Data']);
+                const lockCell = sheet.getCell(activeRow, dicColumn['Lock']);
                 loanInputDataCell.load('values');
                 lockCell.load('values');
-    
-                await context.sync();
+                await context.sync();  // Ensure the cell values are loaded
     
                 // Check if the loan data is locked
                 if (loanInputDataCell.values[0][0] !== '' && lockCell.values[0][0] === true) {
+                    // Display a message if the data is locked
                     Office.context.ui.displayDialogAsync('The Loan Input Data is locked and cannot be retrieved.');
                 } else {
+                    // Call other functions to handle unlocked data
                     getLoanInputData();
                     viewLoanInputData();
                 }
