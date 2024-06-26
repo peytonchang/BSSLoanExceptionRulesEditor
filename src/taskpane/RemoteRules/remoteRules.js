@@ -485,16 +485,21 @@
 
     function getColumnDictionary(aData) {
         const columnDictionary = {};  // Use an object to store key-value pairs
+        console.log("made it here (getColumnnDictionary) 1");
         if (!aData || !aData[0]) return columnDictionary;  // Return empty object if no data
     
         aData[0].forEach((column, index) => {
+            console.log("made it here (getColumnnDictionary) 2");
             const columnName = column.trim();  // Assuming column can be directly trimmed
+            console.log("made it here (getColumnnDictionary) 3");
             if (columnName !== '') {
+                console.log("made it here (getColumnnDictionary) 4");
                 columnDictionary[columnName] = index;
+                console.log("made it here (getColumnnDictionary) 5");
                 // console.log(`Col: #${index} - ${columnName}`); // Optionally log the column names and indexes
             }
         });
-    
+        console.log("made it here (getColumnnDictionary) 6");
         return columnDictionary;
     }
 
