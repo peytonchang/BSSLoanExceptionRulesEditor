@@ -1,4 +1,3 @@
-<script>
 /**
  * JSON Tree library (a part of jsonTreeViewer)
  * http://github.com/summerstyle/jsonTreeViewer
@@ -818,4 +817,3 @@ var jsonTree = (function() {
         }
     };
 })();
-</script>
