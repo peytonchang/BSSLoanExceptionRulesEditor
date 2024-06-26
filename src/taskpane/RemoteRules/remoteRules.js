@@ -19,21 +19,53 @@
     }
 
     async function getAndDisplayLoanInputData() {
-        // Assume we have a way to fetch the active worksheet and its data
-        const oWks = await getActiveWorksheet();
-        const aData = await oWks.getRangeData(1, 1, 1, await oWks.getLastColumn());
+        try {
+            await Excel.run(async (context) => {
+                // Get the active worksheet
+                const sheet = context.workbook.worksheets.getActiveWorksheet();
+                sheet.load('name'); // Load the sheet name if you need it for debugging or logging
     
-        const dicColumn = getColumnDictionary(aData);
-        const iRow = await oWks.getActiveCellRow();
-        
-        const loanInputDataCell = await oWks.getCell(iRow, dicColumn['Loan Input Data'] + 1);
-        const lockCell = await oWks.getCell(iRow, dicColumn['Lock'] + 1);
+                // Get the last column and load its index
+                const lastCol = sheet.getUsedRange().getLastColumn();
+                lastCol.load('columnIndex');
     
-        if (loanInputDataCell !== '' && lockCell === true) {
-            alert('Loan Input Data Locked', 'Cannot get Loan Input Data.'); // Adjust this to match your UI handling
-        } else {
-            getLoanInputData();
-            viewLoanInputData();
+                // Synchronize the context to load the last column index
+                await context.sync();
+    
+                // Get the range for the first row to read the headers
+                const headerRange = sheet.getRange("1:1");
+                headerRange.load('values');
+                await context.sync();
+    
+                // Create a dictionary of column headers to their index
+                const dicColumn = getColumnDictionary(headerRange.values[0]);
+                const iRow = context.workbook.getSelectedRange().rowIndex;
+                context.workbook.getSelectedRange().load('rowIndex');
+    
+                await context.sync();
+    
+                // Get values for "Loan Input Data" and "Lock" from the current row
+                const loanInputDataCell = sheet.getCell(iRow, dicColumn['Loan Input Data']);
+                const lockCell = sheet.getCell(iRow, dicColumn['Lock']);
+    
+                loanInputDataCell.load('values');
+                lockCell.load('values');
+    
+                await context.sync();
+    
+                // Check if the loan data is locked
+                if (loanInputDataCell.values[0][0] !== '' && lockCell.values[0][0] === true) {
+                    Office.context.ui.displayDialogAsync('The Loan Input Data is locked and cannot be retrieved.');
+                } else {
+                    getLoanInputData();
+                    viewLoanInputData();
+                }
+            });
+        } catch (error) {
+            console.error("Error: " + error);
+            if (error instanceof OfficeExtension.Error) {
+                console.log("Debug info: " + JSON.stringify(error.debugInfo));
+            }
         }
     }
 
@@ -42,17 +74,51 @@
     }
 
     async function viewLoanInputData() {
-        const oWks = await getActiveWorksheet();
-        const aData = await oWks.getRangeData(1, 1, 1, await oWks.getLastColumn());
-        const dicColumn = getColumnDictionary(aData);
-        const activeRow = await oWks.getActiveCellRow();
+        try {
+            await Excel.run(async (context) => {
+                const sheet = context.workbook.worksheets.getActiveWorksheet();
+                const lastCol = sheet.getUsedRange().getLastColumn();
+                lastCol.load('columnIndex');
+                await context.sync();
     
-        const environment = await oWks.getCell(activeRow, dicColumn['Environment'] + 1);
-        const ruleProject = await oWks.getCell(activeRow, dicColumn['Rule Project'] + 1);
-        const loanNumber = await oWks.getCell(activeRow, dicColumn['Loan #'] + 1);
-        const loanInputData = await oWks.getCell(activeRow, dicColumn['Loan Input Data'] + 1);
+                const headerRange = sheet.getRange("1:1");
+                headerRange.load('values');
+                await context.sync();
     
-        showJSON(loanInputData, `${ruleProject} Input Data Viewer - ${environment} #${loanNumber}`);
+                const dicColumn = getColumnDictionary(headerRange.values[0]);
+                const activeRange = context.workbook.getSelectedRange();
+                activeRange.load('rowIndex');
+                await context.sync();
+    
+                const activeRow = activeRange.rowIndex;
+    
+                // Load necessary cells
+                const environmentCell = sheet.getCell(activeRow, dicColumn['Environment'] + 1);
+                const ruleProjectCell = sheet.getCell(activeRow, dicColumn['Rule Project'] + 1);
+                const loanNumberCell = sheet.getCell(activeRow, dicColumn['Loan #'] + 1);
+                const loanInputDataCell = sheet.getCell(activeRow, dicColumn['Loan Input Data'] + 1);
+    
+                environmentCell.load('values');
+                ruleProjectCell.load('values');
+                loanNumberCell.load('values');
+                loanInputDataCell.load('values');
+                await context.sync();
+    
+                // Retrieve the values
+                const environment = environmentCell.values[0][0];
+                const ruleProject = ruleProjectCell.values[0][0];
+                const loanNumber = loanNumberCell.values[0][0];
+                const loanInputData = loanInputDataCell.values[0][0];
+    
+                // Display the JSON in a custom UI element or alert, adjust `showJSON` accordingly
+                showJSON(loanInputData, `${ruleProject} Input Data Viewer - ${environment} #${loanNumber}`);
+            });
+        } catch (error) {
+            console.error("Error: " + error);
+            if (error instanceof OfficeExtension.Error) {
+                console.log("Debug info: " + JSON.stringify(error.debugInfo));
+            }
+        }
     }
 
     function viewResultsData() {
@@ -60,43 +126,94 @@
     }
 
     async function getLoanInputData() {
-        const oWks = await getActiveWorksheet();
-        const aData = await oWks.getRangeData(1, 1, 1, await oWks.getLastColumn());
-        const dicColumn = getColumnDictionary(aData);
-        const iRow = await oWks.getActiveCellRow();
-        const environment = await oWks.getCell(iRow, dicColumn['Environment'] + 1);
-        const ruleProject = await oWks.getCell(iRow, dicColumn['Rule Project'] + 1);
-        const loanNumber = await oWks.getCell(iRow, dicColumn['Loan #'] + 1);
+        try {
+            await Excel.run(async (context) => {
+                const sheet = context.workbook.worksheets.getActiveWorksheet();
+                const lastCol = sheet.getUsedRange().getLastColumn();
+                lastCol.load('columnIndex');
+                await context.sync();
     
-        const serviceParams = getServiceParams(environment, ruleProject);
+                const headerRange = sheet.getRange("1:1");
+                headerRange.load('values');
+                await context.sync();
     
-        if (serviceParams.length > 0) {
-            const resultsJSON = await fetchServiceInputDataJSON(serviceParams, loanNumber);
-            let inputDataJSON = null;
+                const dicColumn = getColumnDictionary(headerRange.values[0]);
+                const activeRange = context.workbook.getSelectedRange();
+                activeRange.load('rowIndex');
+                await context.sync();
     
-            if (propertyExists(resultsJSON, 'parameters.loanData')) {
-                inputDataJSON = resultsJSON.parameters.loanData.value;
+                const activeRow = activeRange.rowIndex;
     
-                if (ruleProject === 'getLoanExceptions') {
-                    inputDataJSON.fullEligibility = true;
+                // Load necessary cells
+                const environmentCell = sheet.getCell(activeRow, dicColumn['Environment'] + 1);
+                const ruleProjectCell = sheet.getCell(activeRow, dicColumn['Rule Project'] + 1);
+                const loanNumberCell = sheet.getCell(activeRow, dicColumn['Loan #'] + 1);
+    
+                environmentCell.load('values');
+                ruleProjectCell.load('values');
+                loanNumberCell.load('values');
+                await context.sync();
+    
+                // Retrieve the values
+                const environment = environmentCell.values[0][0];
+                const ruleProject = ruleProjectCell.values[0][0];
+                const loanNumber = loanNumberCell.values[0][0];
+    
+                const serviceParams = getServiceParams(environment, ruleProject);
+                if (serviceParams.length > 0) {
+                    const resultsJSON = await fetchServiceInputDataJSON(serviceParams, loanNumber);
+                    let inputDataJSON = null;
+    
+                    if (propertyExists(resultsJSON, 'parameters.loanData')) {
+                        inputDataJSON = resultsJSON.parameters.loanData.value;
+    
+                        if (ruleProject === 'getLoanExceptions') {
+                            inputDataJSON.fullEligibility = true;
+                        }
+                    } else if (ruleProject === 'Pricing' && propertyExists(resultsJSON, 'result.inputData')) {
+                        inputDataJSON = resultsJSON.result.inputData;
+                    }
+    
+                    if (inputDataJSON != null) {
+                        condenseJSON(inputDataJSON);
+    
+                        if (propertyExists(inputDataJSON, 'rateLockDate')) {
+                            const effectiveDate = formatDate(new Date(inputDataJSON.rateLockDate), 'yyyy-MM-dd');
+                            await sheet.getCell(activeRow, dicColumn['Effective Date'] + 1).setValues([[effectiveDate]]);
+                        }
+    
+                        const currentTimeStamp = formatDate(new Date(), 'MM-dd-yyyy hh:mm:ss a');
+                        await sheet.getCell(activeRow, dicColumn['Input Data Timestamp'] + 1).setValues([[currentTimeStamp]]);
+                        await sheet.getCell(activeRow, dicColumn['Loan Input Data'] + 1).setValues([[JSON.stringify(inputDataJSON)]]);
+                    }
                 }
-            } else if (ruleProject === 'Pricing' && propertyExists(resultsJSON, 'result.inputData')) {
-                inputDataJSON = resultsJSON.result.inputData;
-            }
-    
-            if (inputDataJSON != null) {
-                condenseJSON(inputDataJSON);
-    
-                if (propertyExists(inputDataJSON, 'rateLockDate')) {
-                    const effectiveDate = formatDate(new Date(inputDataJSON.rateLockDate), 'yyyy-MM-dd');
-                    await oWks.setCell(iRow, dicColumn['Effective Date'] + 1, effectiveDate);
-                }
-    
-                const currentTimeStamp = formatDate(new Date(), 'MM-dd-yyyy hh:mm:ss a');
-                await oWks.setCell(iRow, dicColumn['Input Data Timestamp'] + 1, currentTimeStamp);
-                await oWks.setCell(iRow, dicColumn['Loan Input Data'] + 1, JSON.stringify(inputDataJSON));
+            });
+        } catch (error) {
+            console.error("Error: " + error);
+            if (error instanceof OfficeExtension.Error) {
+                console.log("Debug info: " + JSON.stringify(error.debugInfo));
             }
         }
+    }
+
+    function formatDate(date, format) {
+        // Simple date formatting, adjust as needed or use a library like date-fns or moment.js
+        let dd = String(date.getDate()).padStart(2, '0');
+        let mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
+        let yyyy = date.getFullYear();
+    
+        if (format === 'yyyy-MM-dd') {
+            return `${yyyy}-${mm}-${dd}`;
+        } else if (format === 'MM-dd-yyyy hh:mm:ss a') {
+            let hh = date.getHours();
+            let min = String(date.getMinutes()).padStart(2, '0');
+            let ss = String(date.getSeconds()).padStart(2, '0');
+            let ampm = hh >= 12 ? 'pm' : 'am';
+            hh = hh % 12;
+            hh = hh ? hh : 12; // the hour '0' should be '12'
+            return `${mm}-${dd}-${yyyy} ${hh}:${min}:${ss} ${ampm}`;
+        }
+        return date.toISOString().slice(0, 10);
     }
 
     async function fetchServiceInputDataJSON(serviceParams, loanNumber) {
