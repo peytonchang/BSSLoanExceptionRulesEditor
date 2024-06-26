@@ -95,8 +95,13 @@ module.exports = async (env, options) => {
         chunks: [],  // No specific chunks needed for dialog
       }),
       new HtmlWebpackPlugin({
-        filename: "google.html",
+        filename: "url.html",
         template: "./src/taskpane/url.html",
+        chunks: [],  // No specific chunks needed for dialog
+      }),
+      new HtmlWebpackPlugin({
+        filename: "remoteRulesHome.html",
+        template: "./src/taskpane/RemoteRules/remoteRulesHome.html",
         chunks: [],  // No specific chunks needed for dialog
       }),
     ],

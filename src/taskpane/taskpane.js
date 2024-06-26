@@ -23,10 +23,12 @@
                 const openDialogButton = document.getElementById('open-dialog-btn');
                 const openRulesConditions = document.getElementById('rulesConditions');
                 const openGoogleButton = document.getElementById('openUrl');
+                const openRemoteRules = document.getElementById('remoteRules');
 
                 openDialogButton.addEventListener('click', openDialog);
                 openRulesConditions.addEventListener('click', rulesConditionsWindow);    
                 openGoogleButton.addEventListener('click', urlWindow); 
+                openRemoteRules.addEventListener('click', openRemoteRulesUI);
             }
         }
     }
@@ -75,6 +77,12 @@
     function urlWindow() {
         if (!window.location.pathname.endsWith('dialog.html')) {
             window.location.href = 'https://peytonchang.github.io/BSSLoanExceptionRulesEditor/src/dialog.html';
+        }
+    }
+
+    function openRemoteRulesUI() {
+        if (!window.location.pathname.endsWith('remoteRulesHome.html')) {
+            window.location.href = 'https://peytonchang.github.io/BSSLoanExceptionRulesEditor/src/taskpane/RemoteRules/remoteRulesHome.html';
         }
     }
 
