@@ -77,6 +77,11 @@
         Excel.run(function (context) {
             // Get the active worksheet
             var sheet = context.workbook.worksheets.getActiveWorksheet();
+        
+            // Request to load the 'name' property of the worksheet
+            sheet.load('name');
+        
+            // Sync the context to actually fetch the property
             return context.sync().then(function () {
                 console.log("Active worksheet is: " + sheet.name);
                 return sheet; // You can now use 'sheet' to interact with the active worksheet
