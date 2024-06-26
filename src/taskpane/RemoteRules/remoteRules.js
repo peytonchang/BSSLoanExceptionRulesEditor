@@ -486,6 +486,7 @@
     function getColumnDictionary(aData) {
         const columnDictionary = {};  // Use an object to store key-value pairs
         console.log("made it here (getColumnnDictionary) 1");
+        console.log("aData[0]:", aData[0]);
         if (!aData || !aData[0]) return columnDictionary;  // Return empty object if no data
     
         aData[0].forEach((column, index) => {
