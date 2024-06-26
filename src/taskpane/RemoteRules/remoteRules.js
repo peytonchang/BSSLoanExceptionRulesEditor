@@ -484,23 +484,37 @@
     }
 
     function getColumnDictionary(aData) {
-        const columnDictionary = {};  // Use an object to store key-value pairs
         console.log("made it here (getColumnnDictionary) 1");
-        console.log("aData[0]:", aData[0]);
-        if (!aData || !aData[0]) return columnDictionary;  // Return empty object if no data
-    
-        aData[0].forEach((column, index) => {
+        const columnDictionary = {};
+        // Check if the input is an array and its first element is also an array
+        if (!Array.isArray(aData) || !Array.isArray(aData[0])) {
             console.log("made it here (getColumnnDictionary) 2");
-            const columnName = column.trim();  // Assuming column can be directly trimmed
-            console.log("made it here (getColumnnDictionary) 3");
-            if (columnName !== '') {
-                console.log("made it here (getColumnnDictionary) 4");
-                columnDictionary[columnName] = index;
+            console.error("Invalid header data format. Expected an array of arrays.");
+            // Check if it's an array of strings (flat array of headers)
+            if (Array.isArray(aData) && typeof aData[0] === 'string') {
+                console.log("made it here (getColumnnDictionary) 3");
+                aData.forEach((header, index) => {
+                    const columnName = header.trim();
+                    if (columnName !== '') {
+                        console.log("made it here (getColumnnDictionary) 4");
+                        columnDictionary[columnName] = index;
+                    }
+                });
+            } else {
                 console.log("made it here (getColumnnDictionary) 5");
-                // console.log(`Col: #${index} - ${columnName}`); // Optionally log the column names and indexes
+                console.error("Unexpected data format:", aData);
+            }
+            console.log("made it here (getColumnnDictionary) 6");
+            return columnDictionary;
+        }
+    
+        // Process normally if it's an array of arrays
+        aData[0].forEach((column, index) => {
+            const columnName = column.trim();
+            if (columnName !== '') {
+                columnDictionary[columnName] = index;
             }
         });
-        console.log("made it here (getColumnnDictionary) 6");
         return columnDictionary;
     }
 
