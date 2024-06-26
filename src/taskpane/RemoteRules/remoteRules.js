@@ -33,7 +33,7 @@
                 console.log("made it here 2");
     
                 // Get the range for the first row to read the headers and load their values
-                const headerRange = sheet.getRange("1:1");
+                const headerRange = sheet.getRange("A1:J1");
                 headerRange.load('values');
                 await context.sync();  // Ensure the header values are loaded
                 console.log("made it here 3" + headerRange.values);
