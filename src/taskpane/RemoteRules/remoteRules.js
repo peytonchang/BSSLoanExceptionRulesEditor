@@ -62,9 +62,11 @@
     
                 // Check if the loan data is locked
                 if (loanInputDataCell.values[0][0] !== '' && lockCell.values[0][0] === true) {
+                    console.log("made it here 8");
                     // Display a message if the data is locked
                     Office.context.ui.displayDialogAsync('The Loan Input Data is locked and cannot be retrieved.');
                 } else {
+                    console.log("made it here 9");
                     // Call other functions to handle unlocked data
                     getLoanInputData();
                     viewLoanInputData();
@@ -156,62 +158,79 @@
     }
 
     async function getLoanInputData() {
+        console.log("made it here (getLoanInputData) 1");
         try {
             await Excel.run(async (context) => {
+                console.log("made it here (getLoanInputData) 2");
                 const sheet = context.workbook.worksheets.getActiveWorksheet();
                 const lastCol = sheet.getUsedRange().getLastColumn();
                 lastCol.load('columnIndex');
                 await context.sync();
-    
+                
+                console.log("made it here (getLoanInputData) 3");
                 const headerRange = sheet.getRange("1:1");
                 headerRange.load('values');
                 await context.sync();
     
+                console.log("made it here (getLoanInputData) 3");
                 const dicColumn = getColumnDictionary(headerRange.values[0]);
                 const activeRange = context.workbook.getSelectedRange();
                 activeRange.load('rowIndex');
                 await context.sync();
     
+                console.log("made it here (getLoanInputData) 4");
                 const activeRow = activeRange.rowIndex;
     
+                console.log("made it here (getLoanInputData) 5");
                 // Load necessary cells
                 const environmentCell = sheet.getCell(activeRow, dicColumn['Environment'] + 1);
                 const ruleProjectCell = sheet.getCell(activeRow, dicColumn['Rule Project'] + 1);
                 const loanNumberCell = sheet.getCell(activeRow, dicColumn['Loan #'] + 1);
     
+                console.log("made it here (getLoanInputData) 6");
                 environmentCell.load('values');
                 ruleProjectCell.load('values');
                 loanNumberCell.load('values');
                 await context.sync();
     
+                console.log("made it here (getLoanInputData) 7");
                 // Retrieve the values
                 const environment = environmentCell.values[0][0];
                 const ruleProject = ruleProjectCell.values[0][0];
                 const loanNumber = loanNumberCell.values[0][0];
-    
+                
+                console.log("made it here (getLoanInputData) 8");
                 const serviceParams = getServiceParams(environment, ruleProject);
                 if (serviceParams.length > 0) {
+                    console.log("made it here (getLoanInputData) 9");
                     const resultsJSON = await fetchServiceInputDataJSON(serviceParams, loanNumber);
                     let inputDataJSON = null;
-    
+                    
+                    console.log("made it here (getLoanInputData) 10");
                     if (propertyExists(resultsJSON, 'parameters.loanData')) {
                         inputDataJSON = resultsJSON.parameters.loanData.value;
-    
+                        
+                        console.log("made it here (getLoanInputData) 1");
                         if (ruleProject === 'getLoanExceptions') {
+                            console.log("made it here (getLoanInputData) 12");
                             inputDataJSON.fullEligibility = true;
                         }
                     } else if (ruleProject === 'Pricing' && propertyExists(resultsJSON, 'result.inputData')) {
+                        console.log("made it here (getLoanInputData) 13");
                         inputDataJSON = resultsJSON.result.inputData;
                     }
     
                     if (inputDataJSON != null) {
+                        console.log("made it here (getLoanInputData) 14");
                         condenseJSON(inputDataJSON);
     
                         if (propertyExists(inputDataJSON, 'rateLockDate')) {
+                            console.log("made it here (getLoanInputData) 15");
                             const effectiveDate = formatDate(new Date(inputDataJSON.rateLockDate), 'yyyy-MM-dd');
                             await sheet.getCell(activeRow, dicColumn['Effective Date'] + 1).setValues([[effectiveDate]]);
                         }
-    
+                        
+                        console.log("made it here (getLoanInputData) 16");
                         const currentTimeStamp = formatDate(new Date(), 'MM-dd-yyyy hh:mm:ss a');
                         await sheet.getCell(activeRow, dicColumn['Input Data Timestamp'] + 1).setValues([[currentTimeStamp]]);
                         await sheet.getCell(activeRow, dicColumn['Loan Input Data'] + 1).setValues([[JSON.stringify(inputDataJSON)]]);
