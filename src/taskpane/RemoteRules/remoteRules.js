@@ -36,7 +36,7 @@
                 const headerRange = sheet.getRange("A1:J1");
                 headerRange.load('values');
                 await context.sync();  // Ensure the header values are loaded
-                console.log("made it here 3" + headerRange.values);
+                console.log("made it here 3");
     
                 // Create a dictionary of column headers to their index
                 const dicColumn = getColumnDictionary(headerRange.values[0]);
@@ -236,8 +236,10 @@
                         await sheet.getCell(activeRow, dicColumn['Loan Input Data'] + 1).setValues([[JSON.stringify(inputDataJSON)]]);
                     }
                 }
+                console.log("made it here (getLoanInputData) 18");
             });
         } catch (error) {
+            console.log("made it here (getLoanInputData) 19");
             console.error("Error: " + error);
             if (error instanceof OfficeExtension.Error) {
                 console.log("Debug info: " + JSON.stringify(error.debugInfo));
