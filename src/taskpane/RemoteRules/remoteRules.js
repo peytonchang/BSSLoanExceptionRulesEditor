@@ -12,10 +12,10 @@
         const viewInputData = document.getElementById('viewLoanInputData');
         const viewResultData = document.getElementById('viewResultsData');
 
-        openDialogButton.addEventListener('click', getAndDisplayLoanInputData);
-        openRulesConditions.addEventListener('click', executeRules);    
-        openGoogleButton.addEventListener('click', viewLoanInputData); 
-        openRemoteRules.addEventListener('click', viewResultsData);
+        getAndDisplay.addEventListener('click', getAndDisplayLoanInputData);
+        execute.addEventListener('click', executeRules);    
+        viewInputData.addEventListener('click', viewLoanInputData); 
+        viewResultData.addEventListener('click', viewResultsData);
     }
 
     async function getAndDisplayLoanInputData() {
