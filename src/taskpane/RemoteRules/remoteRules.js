@@ -318,9 +318,11 @@
     }
 
     function showJSON(json, title) {
+        console.log("made it here (showJSON) 1");
         // Escape single quotes in the JSON string
         const safeJson = json.replace(/'/g, "\\'");
     
+        console.log("made it here (showJSON) 2");
         // Create a full HTML page content
         const htmlContent = `
             <html>
@@ -352,9 +354,12 @@
             </body>
             </html>`;
     
+        console.log("made it here (showJSON) 3");
         // Display the HTML in a new window or a modal
         const newWindow = window.open("", title, "width=1100,height=700");
+        console.log("made it here (showJSON) 4");
         newWindow.document.write(htmlContent);
+        console.log("made it here (showJSON) 5");
         newWindow.document.close(); // Close the document to parse the HTML
     }
     
