@@ -12,7 +12,7 @@
         const viewInputData = document.getElementById('viewLoanInputData');
         const viewResultData = document.getElementById('viewResultsData');
 
-        getAndDisplay.addEventListener('click', getAndDisplayLoanInputData);
+        getAndDisplay.addEventListener('click', test);
         execute.addEventListener('click', executeRules);    
         viewInputData.addEventListener('click', viewLoanInputData); 
         viewResultData.addEventListener('click', viewResultsData);
@@ -71,6 +71,22 @@
 
     function executeRules() {
 
+    }
+
+    function test() {
+        Excel.run(function (context) {
+            // Get the active worksheet
+            var sheet = context.workbook.worksheets.getActiveWorksheet();
+            return context.sync().then(function () {
+                console.log("Active worksheet is: " + sheet.name);
+                return sheet; // You can now use 'sheet' to interact with the active worksheet
+            });
+        }).catch(function (error) {
+            console.error("Error: " + error);
+            if (error instanceof OfficeExtension.Error) {
+                console.log("Debug info: " + JSON.stringify(error.debugInfo));
+            }
+        });
     }
 
     async function viewLoanInputData() {
