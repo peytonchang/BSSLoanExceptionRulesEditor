@@ -328,8 +328,8 @@
             <html>
             <head>
                 <base target="_top">
-                <link rel="stylesheet" type="text/css" href="jsonTree.css">
-                <script src="jsonTree.js"></script>
+                <link rel="stylesheet" type="text/css" href="https://peytonchang.github.io/BSSLoanExceptionRulesEditor/src/taskpane/RemoteRules/jsonTree.css">
+                <script src="https://peytonchang.github.io/BSSLoanExceptionRulesEditor/src/taskpane/RemoteRules/jsonTree.js"></script>
                 <script language="javascript">
                 function loadJson() {
                     const jsonData = JSON.parse('${safeJson}');
