@@ -24,27 +24,33 @@
                 // Get the active worksheet
                 const sheet = context.workbook.worksheets.getActiveWorksheet();
                 sheet.load('name'); // Optional: Load the sheet name for debugging or logging
-    
+                console.log("made it here 1");
+
                 // Get the last column in the used range and load its index
                 const lastCol = sheet.getUsedRange().getLastColumn();
                 lastCol.load('columnIndex');
                 await context.sync();  // Ensure the last column index is loaded
+                console.log("made it here 2");
     
                 // Get the range for the first row to read the headers and load their values
                 const headerRange = sheet.getRange("1:1");
                 headerRange.load('values');
                 await context.sync();  // Ensure the header values are loaded
+                console.log("made it here 3");
     
                 // Create a dictionary of column headers to their index
                 const dicColumn = getColumnDictionary(headerRange.values[0]);
+                console.log("made it here 4");
     
                 // Get the currently selected range and load its row index
                 const activeRange = context.workbook.getSelectedRange();
                 activeRange.load('rowIndex');
                 await context.sync();  // Ensure the row index of the selected range is loaded
+                console.log("made it here 5");
     
                 // Calculate the active row index
                 const activeRow = activeRange.rowIndex;
+                console.log("made it here 6");
     
                 // Load necessary cells for "Loan Input Data" and "Lock" from the current row
                 const loanInputDataCell = sheet.getCell(activeRow, dicColumn['Loan Input Data']);
@@ -52,6 +58,7 @@
                 loanInputDataCell.load('values');
                 lockCell.load('values');
                 await context.sync();  // Ensure the cell values are loaded
+                console.log("made it here 7");
     
                 // Check if the loan data is locked
                 if (loanInputDataCell.values[0][0] !== '' && lockCell.values[0][0] === true) {
