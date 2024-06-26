@@ -36,7 +36,7 @@
                 const headerRange = sheet.getRange("1:1");
                 headerRange.load('values');
                 await context.sync();  // Ensure the header values are loaded
-                console.log("made it here 3");
+                console.log("made it here 3" + headerRange);
     
                 // Create a dictionary of column headers to their index
                 const dicColumn = getColumnDictionary(headerRange.values[0]);
