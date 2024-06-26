@@ -106,42 +106,51 @@
     }
 
     async function viewLoanInputData() {
+        console.log("made it here (viewLoanInputData) 2");
         try {
             await Excel.run(async (context) => {
+                console.log("made it here (viewLoanInputData) 2");
                 const sheet = context.workbook.worksheets.getActiveWorksheet();
                 const lastCol = sheet.getUsedRange().getLastColumn();
                 lastCol.load('columnIndex');
                 await context.sync();
     
-                const headerRange = sheet.getRange("1:1");
+                console.log("made it here (viewLoanInputData) 3");
+                const headerRange = sheet.getRange("A1:J1");
                 headerRange.load('values');
                 await context.sync();
     
+                console.log("made it here (viewLoanInputData) 4");
                 const dicColumn = getColumnDictionary(headerRange.values[0]);
                 const activeRange = context.workbook.getSelectedRange();
                 activeRange.load('rowIndex');
                 await context.sync();
     
+                console.log("made it here (viewLoanInputData) 5");
                 const activeRow = activeRange.rowIndex;
     
+                console.log("made it here (viewLoanInputData) 6");
                 // Load necessary cells
                 const environmentCell = sheet.getCell(activeRow, dicColumn['Environment'] + 1);
                 const ruleProjectCell = sheet.getCell(activeRow, dicColumn['Rule Project'] + 1);
                 const loanNumberCell = sheet.getCell(activeRow, dicColumn['Loan #'] + 1);
                 const loanInputDataCell = sheet.getCell(activeRow, dicColumn['Loan Input Data'] + 1);
     
+                console.log("made it here (viewLoanInputData) 7");
                 environmentCell.load('values');
                 ruleProjectCell.load('values');
                 loanNumberCell.load('values');
                 loanInputDataCell.load('values');
                 await context.sync();
     
+                console.log("made it here (viewLoanInputData) 8");
                 // Retrieve the values
                 const environment = environmentCell.values[0][0];
                 const ruleProject = ruleProjectCell.values[0][0];
                 const loanNumber = loanNumberCell.values[0][0];
                 const loanInputData = loanInputDataCell.values[0][0];
     
+                console.log("made it here (viewLoanInputData) 9");
                 // Display the JSON in a custom UI element or alert, adjust `showJSON` accordingly
                 showJSON(loanInputData, `${ruleProject} Input Data Viewer - ${environment} #${loanNumber}`);
             });
