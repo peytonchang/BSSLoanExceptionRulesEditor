@@ -807,7 +807,7 @@
                 if (!exceptionRule.valid) {
                     console.log("made it here (formatServiceResults) 3");
                     retVal += `${retVal ? ',' : ''}"${exceptionRule.id} - ${exceptionRule.message.replace(/"/g, '\'')}":`;
-                    if (propertyExists(exceptionRule, 'facts')) {
+                    if (propertyExists(exceptionRule, 'facts') && exceptionRule.facts !== null) {
                         console.log("made it here (formatServiceResults) 4");
                         console.log("exceptionRule.facts: " + exceptionRule.facts)
                         retVal += '{';
