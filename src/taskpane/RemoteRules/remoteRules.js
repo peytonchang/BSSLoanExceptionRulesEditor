@@ -480,6 +480,7 @@
         console.log("made it here (fetchServiceInputDataJSON) 4");
         try {
             console.log("made it here (fetchServiceInputDataJSON) 5");
+            console.log("url: " + url);
             const response = await fetch(url, options);
             if (response.status !== 200) {
                 console.log(`Validate request returned HTTP status code: ${response.status}`);
