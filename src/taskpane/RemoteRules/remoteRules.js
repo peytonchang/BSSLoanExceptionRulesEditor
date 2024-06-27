@@ -528,6 +528,7 @@
         if (!Array.isArray(aData) || !Array.isArray(aData[0])) {
             console.log("made it here (getColumnnDictionary) 2");
             console.error("Invalid header data format. Expected an array of arrays.");
+            console.log("aData: " + aData);
             // Check if it's an array of strings (flat array of headers)
             if (Array.isArray(aData) && typeof aData[0] === 'string') {
                 console.log("made it here (getColumnnDictionary) 3");
