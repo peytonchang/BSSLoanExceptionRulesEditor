@@ -255,15 +255,19 @@
                             console.log("made it here (getLoanInputData) 16");
                             const effectiveDate = formatDate(new Date(inputDataJSON.rateLockDate), 'yyyy-MM-dd');
                             // await sheet.getCell(activeRow, dicColumn['Effective Date'] + 1).setValues([[effectiveDate]]);
-                            await sheet.getCell(activeRow, dicColumn['Effective Date']).setValues([[effectiveDate]]);
+                            // await sheet.getCell(activeRow, dicColumn['Effective Date']).setValues([[effectiveDate]]);
+                            sheet.getCell(activeRow, dicColumn['Effective Date']).values = [[effectiveDate]];
                         }
                         
                         console.log("made it here (getLoanInputData) 17");
                         const currentTimeStamp = formatDate(new Date(), 'MM-dd-yyyy hh:mm:ss a');
                         // await sheet.getCell(activeRow, dicColumn['Input Data Timestamp'] + 1).setValues([[currentTimeStamp]]);
                         // await sheet.getCell(activeRow, dicColumn['Loan Input Data'] + 1).setValues([[JSON.stringify(inputDataJSON)]]);
-                        await sheet.getCell(activeRow, dicColumn['Input Data Timestamp']).setValues([[currentTimeStamp]]);
-                        await sheet.getCell(activeRow, dicColumn['Loan Input Data']).setValues([[JSON.stringify(inputDataJSON)]]);
+                        // await sheet.getCell(activeRow, dicColumn['Input Data Timestamp']).setValues([[currentTimeStamp]]);
+                        // await sheet.getCell(activeRow, dicColumn['Loan Input Data']).setValues([[JSON.stringify(inputDataJSON)]]);
+                        sheet.getCell(activeRow, dicColumn['Input Data Timestamp']).values = [[currentTimeStamp]];
+                        sheet.getCell(activeRow, dicColumn['Loan Input Data']).values = [[JSON.stringify(inputDataJSON)]];
+                        await context.sync();
                     }
                 }
                 console.log("made it here (getLoanInputData) 18");
