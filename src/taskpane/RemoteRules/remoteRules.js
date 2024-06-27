@@ -698,7 +698,7 @@
         // Iterate through properties, returning false if object is null or property doesn't exist
         let currentObject = obj;
         for (const property of properties) {
-            if (!currentObject || !Object.prototype.hasOwnProperty.call(currentObject, property)) {
+            if (currentObject === null || !Object.prototype.hasOwnProperty.call(currentObject, property)) {
                 return false;
             }
             currentObject = currentObject[property];
