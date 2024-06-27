@@ -121,7 +121,7 @@
                 await context.sync();
     
                 console.log("made it here (executeRules) 6");
-                let inputDataJson = inputDataJsonCell.values[0][0];
+                let inputDataJson = inputDataJsonCell.values[0][1];
     
                 console.log("made it here (executeRules) 7");
                 if (!inputDataJson) {
