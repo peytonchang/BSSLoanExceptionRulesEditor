@@ -893,18 +893,24 @@
         const accessToken = await getAccessToken(serviceParams);  // Assuming this is an async function
       
         const url = `https://${serviceParams[0]}/lendingservices/externalServices/${serviceParams[3]}`;
-        const options = { 
-            method: 'post',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${accessToken}`
-            },
-            body: JSON.stringify({
-                bypassLogging: true,
-                ruleEngineBeanName: serviceParams[5],
-                inputData: JSON.parse(inputDataJson)
-            })
-        };
+        // const options = { 
+        //     method: 'post',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'Authorization': `Bearer ${accessToken}`
+        //         },
+        //     body: JSON.stringify({
+        //         bypassLogging: true,
+        //         ruleEngineBeanName: serviceParams[5],
+        //         inputData: JSON.parse(inputDataJson)
+        //         })
+        //     };
+        const options = {
+            "method": "post",
+            "muteHttpExceptions": true,
+            "headers": {"content-Type": "application/json", "Authorization": 'Bearer ' + accessToken},
+            "payload": JSON.stringify({"bypassLogging": true, "ruleEngineBeanName": serviceParams[5], "inputData": JSON.parse(inputDataJson)})
+          };
       
         console.log(url);
         console.log(options);
