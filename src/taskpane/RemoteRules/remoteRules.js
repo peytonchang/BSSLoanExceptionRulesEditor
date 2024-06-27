@@ -150,11 +150,11 @@
                 console.log("getServicParams call parameter 2 value: " + ruleProjectCell.values[0][0]);
                 const serviceParams = getServiceParams(environmentCell.values[0][0], ruleProjectCell.values[0][0]);
                 const resultsJSON = await fetchServiceInputDataJSON(serviceParams, loanNumberCell.values[0][0]);
-                console.log("reseultsJSON: " + resultsJSON);
+                console.log("resultsJSON: " + resultsJSON);
                 let formattedResults = '';
     
                 console.log("made it here (executeRules) 13");
-                if (propertyExists(resultsJSON, 'result.serviceResults.businessRules')) {
+                if (propertyExists(resultsJSON, 'result')) {
                     console.log("made it here (executeRules) 14");
                     formattedResults = formatServiceResults(resultsJSON);
                 }
