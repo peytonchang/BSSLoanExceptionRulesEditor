@@ -147,7 +147,7 @@
     
                 console.log("made it here (executeRules) 12");
                 const serviceParams = getServiceParams(environmentCell.values[0][0], ruleProjectCell.values[0][0]);
-                const resultsJSON = await fetchServiceResultsJSON(serviceParams, loanNumberCell.values[0][0], inputDataJson);
+                const resultsJSON = await fetchServiceInputDataJSON(serviceParams, loanNumberCell.values[0][0]);
                 let formattedResults = '';
     
                 console.log("made it here (executeRules) 13");
