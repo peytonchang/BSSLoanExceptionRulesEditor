@@ -490,11 +490,12 @@
                 const data = await response.json();
                 inputData = data;
             }
+            console.log("made it here (fetchServiceInputDataJSON) 8")
         } catch (error) {
             console.error('Fetch error:', error);
         }
     
-        console.log("made it here (fetchServiceInputDataJSON) 8");
+        console.log("made it here (fetchServiceInputDataJSON) 9");
         return inputData;
     }
 
