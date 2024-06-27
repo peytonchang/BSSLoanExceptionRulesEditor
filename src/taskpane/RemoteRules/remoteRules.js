@@ -68,8 +68,8 @@
                 } else {
                     console.log("made it here 9");
                     // Call other functions to handle unlocked data
-                    getLoanInputData();
-                    viewLoanInputData();
+                    await getLoanInputData();
+                    await viewLoanInputData();
                 }
             });
         } catch (error) {
