@@ -483,8 +483,10 @@
             console.log("url: " + url);
             const response = await fetch(url, options);
             if (response.status !== 200) {
+                console.log("made it here (fetchServiceInputDataJSON) 6");
                 console.log(`Validate request returned HTTP status code: ${response.status}`);
             } else {
+                console.log("made it here (fetchServiceInputDataJSON) 7");
                 const data = await response.json();
                 inputData = data;
             }
