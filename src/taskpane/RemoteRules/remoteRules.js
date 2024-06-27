@@ -85,7 +85,6 @@
             await Excel.run(async (context) => {
                 console.log("made it here (executeRules) 1");
                 const sheet = context.workbook.worksheets.getActiveWorksheet();
-                const activeRange = context.workbook.getSelectedRange();
                 const lastCol = sheet.getUsedRange().getLastColumn();
                 lastCol.load('columnIndex');
                 await context.sync();
@@ -97,6 +96,7 @@
     
                 console.log("made it here (executeRules) 3");
                 const dicColumn = getColumnDictionary(headerRange.values[0]);
+                const activeRange = context.workbook.getSelectedRange();
                 const activeCell = context.workbook.getSelectedRange();
                 activeCell.load("address");
                 await context.sync();
