@@ -129,7 +129,7 @@
                     // Asynchronous function to populate data
                     await getLoanInputData();
                     await context.sync();
-                    inputDataJson = inputDataJsonCell.values[0][0]; // Reload value after update
+                    inputDataJson = inputDataJsonCell.values[0][1]; // Reload value after update
                 }
     
                 console.log("made it here (executeRules) 9");
