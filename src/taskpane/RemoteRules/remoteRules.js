@@ -101,15 +101,14 @@
                 activeCell.load("address");
                 await context.sync();
     
-                // Assuming activeCell is a single cell and not a range
-                const iRow = activeCell.address.split("$")[2]; // Address format typically $A$1
+                const activeRow = activeRange.rowIndex;
     
                 console.log("made it here (executeRules) 4");
-                const environmentCell = sheet.getCell(iRow, dicColumn['Environment']);
-                const ruleProjectCell = sheet.getCell(iRow, dicColumn['Rule Project']);
-                const loanNumberCell = sheet.getCell(iRow, dicColumn['Loan #']);
-                const effectiveDateCell = sheet.getCell(iRow, dicColumn['Effective Date']);
-                const inputDataJsonCell = sheet.getCell(iRow, dicColumn['Loan Input Data']);
+                const environmentCell = sheet.getCell(activeRow, dicColumn['Environment']);
+                const ruleProjectCell = sheet.getCell(activeRow, dicColumn['Rule Project']);
+                const loanNumberCell = sheet.getCell(activeRow, dicColumn['Loan #']);
+                const effectiveDateCell = sheet.getCell(activeRow, dicColumn['Effective Date']);
+                const inputDataJsonCell = sheet.getCell(activeRow, dicColumn['Loan Input Data']);
                 console.log("inputDataJsonCell: " + inputDataJsonCell);
     
                 console.log("made it here (executeRules) 5");
@@ -121,7 +120,7 @@
                 await context.sync();
     
                 console.log("made it here (executeRules) 6");
-                let inputDataJson = inputDataJsonCell.values[0][1];
+                let inputDataJson = inputDataJsonCell.values[0][0];
     
                 console.log("made it here (executeRules) 7");
                 if (!inputDataJson) {
@@ -159,8 +158,8 @@
                 }
     
                 console.log("made it here (executeRules) 15");
-                const timestampCell = sheet.getCell(iRow, dicColumn['Execute Rules Timestamp']);
-                const resultsCell = sheet.getCell(iRow, dicColumn['Results']);
+                const timestampCell = sheet.getCell(activeRow, dicColumn['Execute Rules Timestamp']);
+                const resultsCell = sheet.getCell(activeRow, dicColumn['Results']);
     
                 console.log("made it here (executeRules) 16");
                 timestampCell.values = [[new Date().toLocaleString("en-US", { timeZone: "America/New_York" })]];
