@@ -97,6 +97,7 @@
                 console.log("made it here (executeRules) 3");
                 const dicColumn = getColumnDictionary(headerRange.values[0]);
                 const activeRange = context.workbook.getSelectedRange();
+                activeRange.load('rowIndex');
                 const activeCell = context.workbook.getSelectedRange();
                 activeCell.load("address");
                 await context.sync();
