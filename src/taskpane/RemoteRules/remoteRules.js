@@ -214,6 +214,7 @@
                 
                 console.log("made it here (getLoanInputData) 9");
                 const serviceParams = getServiceParams(environment, ruleProject);
+                console.log("serviceParams:" + serviceParams);
                 if (serviceParams.length > 0) {
                     console.log("made it here (getLoanInputData) 10");
                     const resultsJSON = await fetchServiceInputDataJSON(serviceParams, loanNumber);
