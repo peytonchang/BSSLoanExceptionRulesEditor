@@ -134,6 +134,7 @@
                 console.log("made it here (executeRules) 9");
                 if (inputDataJson) {
                     console.log("made it here (executeRules) 10");
+                    console.log("inputDataJson:", inputDataJson);
                     let tmpJson = JSON.parse(inputDataJson);
                     const effectiveDate = effectiveDateCell.values[0][0];
     
