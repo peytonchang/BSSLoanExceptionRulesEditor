@@ -804,26 +804,26 @@
         if (propertyExists(resultsJSON, 'result.serviceResults.businessRules')) {
             console.log("made it here (formatServiceResults) 2");
             resultsJSON.result.serviceResults.businessRules.forEach(exceptionRule => {
-            if (!exceptionRule.valid) {
-                console.log("made it here (formatServiceResults) 3");
-                retVal += `${retVal ? ',' : ''}"${exceptionRule.id} - ${exceptionRule.message.replace(/"/g, '\'')}":`;
-                if (propertyExists(exceptionRule, 'facts')) {
-                    console.log("made it here (formatServiceResults) 4");
-                    retVal += '{';
-                    exceptionRule.facts.forEach((fact, index) => {
-                    retVal += `${index ? ',' : ''}"${fact.name}":"${fact.value}"`;
-                    });
-      
-                    if (exceptionRule.validatorClassName != null) {
-                        console.log("made it here (formatServiceResults) 5");
-                    retVal += `,"validatorClassName":"${exceptionRule.validatorClassName}"`;
+                if (!exceptionRule.valid) {
+                    console.log("made it here (formatServiceResults) 3");
+                    retVal += `${retVal ? ',' : ''}"${exceptionRule.id} - ${exceptionRule.message.replace(/"/g, '\'')}":`;
+                    if (propertyExists(exceptionRule, 'facts')) {
+                        console.log("made it here (formatServiceResults) 4");
+                        retVal += '{';
+                        exceptionRule.facts.forEach((fact, index) => {
+                            retVal += `${index ? ',' : ''}"${fact.name}":"${fact.value}"`;
+                        });
+        
+                        if (exceptionRule.validatorClassName != null) {
+                            console.log("made it here (formatServiceResults) 5");
+                        retVal += `,"validatorClassName":"${exceptionRule.validatorClassName}"`;
+                        }
+                        retVal += '}';
+                    } else {
+                        retVal += '""';
                     }
-                    retVal += '}';
-              } else {
-                    retVal += '""';
-              }
-            }
-        });
+                }
+            });
         } else if (propertyExists(resultsJSON, 'result.serviceResults.approvalConditionItems')) {
             console.log("made it here (formatServiceResults) 6");
             resultsJSON.result.serviceResults.approvalConditionItems.forEach(conditionItem => {
