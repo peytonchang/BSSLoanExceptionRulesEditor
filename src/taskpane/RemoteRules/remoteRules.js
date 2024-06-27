@@ -110,6 +110,7 @@
                 const loanNumberCell = sheet.getCell(iRow, dicColumn['Loan #']);
                 const effectiveDateCell = sheet.getCell(iRow, dicColumn['Effective Date']);
                 const inputDataJsonCell = sheet.getCell(iRow, dicColumn['Loan Input Data']);
+                console.log("inputDataJsonCell: " + inputDataJsonCell);
     
                 console.log("made it here (executeRules) 5");
                 environmentCell.load('values');
