@@ -858,8 +858,28 @@
         } else if (propertyExists(resultsJSON, 'result.serviceResults.feeResults')) {
             condenseJSON(resultsJSON);
             retVal = JSON.stringify(resultsJSON.result.serviceResults);
-        } else {
-          // Add other conditional blocks similarly
+        } else if (propertyExists(resultsJSON, 'result.serviceResults.documentValidationRules')) {
+            condenseJSON(resultsJSON);
+            resultsJSON.result.serviceResults.documentValidationRules.forEach(documentValidation => {
+                retVal += `${retVal ? ',' : ''}"${documentValidation.ruleId} - ${documentValidation.description}":${JSON.stringify(documentValidation.ruleItems)}`;
+            });
+        } else if (propertyExists(resultsJSON, 'result.serviceResults.dataMappingItems')) {
+            condenseJSON(resultsJSON);
+            resultsJSON.result.serviceResults.dataMappingItems.forEach(dataMappingItem => {
+                retVal += `${retVal ? ',' : ''}"${dataMappingItem.key}":"${dataMappingItem.value}"`;
+            });
+        } else if (propertyExists(resultsJSON, 'result.serviceResults.decisionAuthorizationItems')){
+            condenseJSON(resultsJSON);
+            retVal = JSON.stringify(resultsJSON.result.serviceResults);
+        } else if (propertyExists(resultsJSON, 'result.serviceResults.pricingResults')) {
+            condenseJSON(resultsJSON);
+            retVal = JSON.stringify(resultsJSON.result.serviceResults);
+        } else if (propertyExists(resultsJSON, 'result.serviceResults.dateItems')) {
+            condenseJSON(resultsJSON);
+            resultsJSON.result.serviceResults.dateItems.forEach(dateItem => {
+                const bExpirationData = (dateItem.identifier + '').indexOf('EXPIRATION_DATE') > -1;
+                retVal += `${retVal ? ',' : ''}"${bExpirationData ? '[' : ''}${dateItem.identifier}${bExpirationData ? ']' : ''}":"${(dateItem.value + '').substring(0, 10)}"`;
+            });
         }
       
         return `${retVal.startsWith('{') ? '' : '{'}${retVal}${retVal.startsWith('{') ? '' : '}'}`;
