@@ -465,7 +465,7 @@
         let options = {
             method: "GET",
             headers: headers,
-            muteHttpExceptions: true  // This option does not exist in the standard fetch API
+            //muteHttpExceptions: true  // This option does not exist in the standard fetch API
         };
     
         console.log("made it here (fetchServiceInputDataJSON) 3");
