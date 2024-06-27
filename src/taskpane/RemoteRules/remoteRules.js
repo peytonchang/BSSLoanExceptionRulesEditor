@@ -270,7 +270,7 @@
             await context.sync();
     
             console.log("made it here (viewResultsData) 2");
-            const headerRange = sheet.getRange("A1:1");
+            const headerRange = sheet.getRange("A1:J1");
             headerRange.load('values');
             await context.sync();
     
