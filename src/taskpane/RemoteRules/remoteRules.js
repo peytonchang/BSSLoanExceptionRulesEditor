@@ -154,7 +154,7 @@
                 let formattedResults = '';
                 
                 console.log("made it here (executeRules) 13");
-                if (propertyExists(resultsJSON, 'parameters')) {
+                if (propertyExists(resultsJSON, 'result')) {
                     console.log("made it here (executeRules) 14");
                     formattedResults = formatServiceResults(resultsJSON);
                 }
