@@ -809,6 +809,7 @@
                     retVal += `${retVal ? ',' : ''}"${exceptionRule.id} - ${exceptionRule.message.replace(/"/g, '\'')}":`;
                     if (propertyExists(exceptionRule, 'facts')) {
                         console.log("made it here (formatServiceResults) 4");
+                        console.log("exceptionRule.facts: " + exceptionRule.facts)
                         retVal += '{';
                         exceptionRule.facts.forEach((fact, index) => {
                             retVal += `${index ? ',' : ''}"${fact.name}":"${fact.value}"`;
