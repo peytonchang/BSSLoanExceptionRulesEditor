@@ -865,4 +865,43 @@
         return `${retVal.startsWith('{') ? '' : '{'}${retVal}${retVal.startsWith('{') ? '' : '}'}`;
       }
 
+    
+      
+      async function fetchServiceResultsJSON(serviceParams, loanNumber, inputDataJson) {
+
+        let resultsJSON;
+        const accessToken = await getAccessToken(serviceParams);  // Assuming this is an async function
+      
+        const url = `https://${serviceParams[0]}/lendingservices/externalServices/${serviceParams[3]}`;
+        const options = { 
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken}`
+            },
+            body: JSON.stringify({
+                bypassLogging: true,
+                ruleEngineBeanName: serviceParams[5],
+                inputData: JSON.parse(inputDataJson)
+            })
+        };
+      
+        console.log(url);
+        console.log(options);
+      
+        try {
+            const response = await fetch(url, options);
+          if (response.ok) {  // Checks if the status code is 2xx
+            resultsJSON = await response.json();  // Parses the JSON response body
+          } else {
+                console.log(`Validate request returned HTTP status code: ${response.status}`);
+          }
+        } catch (error) {
+            console.error(`Error making request: ${error}`);
+        }
+      
+        return resultsJSON;
+      }
+      
+
 })();
