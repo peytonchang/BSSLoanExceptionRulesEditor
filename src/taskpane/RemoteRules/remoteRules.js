@@ -584,5 +584,32 @@
         return 'Object';
     }
 
+    async function getAccessToken(serviceParams) {
+        console.log("made it here (getAccessToken) 1");
+        const url = `https://${serviceParams[0]}/lendingservices/api/login`;
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ "username": serviceParams[1], "password": serviceParams[2] })
+        };
+    
+        try {
+            const response = await fetch(url, options);
+            console.log("made it here (getAccessToken) 2");
+            if (!response.ok) {
+                console.log("made it here (getAccessToken) 3");
+                console.error('Login request returned HTTP status code:', response.status);
+                return '';
+            }
+            console.log("made it here (getAccessToken) 4");
+            const responseJSON = await response.json();
+            return responseJSON.access_token;
+        } catch (error) {
+            console.error('Error fetching access token:', error);
+            return '';
+        }
+    }
 
 })();
