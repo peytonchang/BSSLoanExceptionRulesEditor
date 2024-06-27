@@ -281,6 +281,7 @@
     }
 
     async function fetchServiceInputDataJSON(serviceParams, loanNumber) {
+        console.log("made it here (fetchServiceInputDataJSON) 1");
         let inputData = '';
         const accessToken = await getAccessToken(serviceParams);  // Assuming getAccessToken is an async function
         const headers = new Headers({
@@ -288,6 +289,7 @@
             "Authorization": `Bearer ${accessToken}`
         });
     
+        console.log("made it here (fetchServiceInputDataJSON) 2");
         let url = `https://${serviceParams[0]}/lendingservices/externalServices/`;
         let options = {
             method: "GET",
@@ -295,6 +297,7 @@
             muteHttpExceptions: true  // This option does not exist in the standard fetch API
         };
     
+        console.log("made it here (fetchServiceInputDataJSON) 3");
         if (serviceParams[3] === 'getPricing') {
             url += 'getPricingInputData';
             options.body = JSON.stringify({ "bypassLogging": true, "inputData": { "loanNumber": loanNumber } });
@@ -303,7 +306,9 @@
             url += `getRuleEngineParameters?loanNumber=${loanNumber}&beanName=${serviceParams[4]}`;
         }
     
+        console.log("made it here (fetchServiceInputDataJSON) 4");
         try {
+            console.log("made it here (fetchServiceInputDataJSON) 5");
             const response = await fetch(url, options);
             if (response.status !== 200) {
                 console.log(`Validate request returned HTTP status code: ${response.status}`);
@@ -315,6 +320,7 @@
             console.error('Fetch error:', error);
         }
     
+        console.log("made it here (fetchServiceInputDataJSON) 6");
         return inputData;
     }
 
