@@ -376,6 +376,7 @@
     }
     
     function getServiceParams(environment, ruleProject) {
+        console.log("made it here (getServiceParams) 1");
         let serviceParams = [];
 
         if (environment === 'BlueDLP DEV') {
@@ -487,6 +488,8 @@
           } else if (environment === 'Chevron UAT') {
             serviceParams.push('cfcu-uat.bluesageusa.com', 'admin', 'boston');
           }
+          console.log("made it here (getServiceParams) 2");
+          console.log("serviceParams: " + serviceParams);
           //SELECT url, user_name, password FROM sys_global_external_system WHERE system_name = 'LENDING_SERVICES_REST_API';
           
           if (ruleProject === 'Loan Exceptions') {
@@ -508,7 +511,8 @@
           } else if (ruleProject === 'Pricing') {
             serviceParams.push('getPricing', 'getPricingInputData', 'getPricing');
           }
-          
+          console.log("made it here (getServiceParams) 3");
+          console.log("serviceParams: " + serviceParams);
           return serviceParams;
     }
     
