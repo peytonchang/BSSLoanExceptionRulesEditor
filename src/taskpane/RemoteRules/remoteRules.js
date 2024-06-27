@@ -131,11 +131,15 @@
     
                 console.log("made it here (viewLoanInputData) 6");
                 // Load necessary cells
+                // const environmentCell = sheet.getCell(activeRow, dicColumn['Environment'] + 1);
+                // const ruleProjectCell = sheet.getCell(activeRow, dicColumn['Rule Project'] + 1);
+                // const loanNumberCell = sheet.getCell(activeRow, dicColumn['Loan #'] + 1);
+                // const loanInputDataCell = sheet.getCell(activeRow, dicColumn['Loan Input Data'] + 1);
                 const environmentCell = sheet.getCell(activeRow, dicColumn['Environment']);
                 const ruleProjectCell = sheet.getCell(activeRow, dicColumn['Rule Project']);
                 const loanNumberCell = sheet.getCell(activeRow, dicColumn['Loan #']);
                 const loanInputDataCell = sheet.getCell(activeRow, dicColumn['Loan Input Data']);
-    
+
                 console.log("made it here (viewLoanInputData) 7");
                 environmentCell.load('values');
                 ruleProjectCell.load('values');
@@ -198,10 +202,13 @@
     
                 console.log("made it here (getLoanInputData) 6");
                 // Load necessary cells
-                const environmentCell = sheet.getCell(activeRow, dicColumn['Environment'] + 1);
-                const ruleProjectCell = sheet.getCell(activeRow, dicColumn['Rule Project'] + 1);
-                const loanNumberCell = sheet.getCell(activeRow, dicColumn['Loan #'] + 1);
-    
+                // const environmentCell = sheet.getCell(activeRow, dicColumn['Environment'] + 1);
+                // const ruleProjectCell = sheet.getCell(activeRow, dicColumn['Rule Project'] + 1);
+                // const loanNumberCell = sheet.getCell(activeRow, dicColumn['Loan #'] + 1);
+                const environmentCell = sheet.getCell(activeRow, dicColumn['Environment']);
+                const ruleProjectCell = sheet.getCell(activeRow, dicColumn['Rule Project']);
+                const loanNumberCell = sheet.getCell(activeRow, dicColumn['Loan #'])
+
                 console.log("made it here (getLoanInputData) 7");
                 environmentCell.load('values');
                 ruleProjectCell.load('values');
@@ -247,13 +254,16 @@
                         if (propertyExists(inputDataJSON, 'rateLockDate')) {
                             console.log("made it here (getLoanInputData) 16");
                             const effectiveDate = formatDate(new Date(inputDataJSON.rateLockDate), 'yyyy-MM-dd');
-                            await sheet.getCell(activeRow, dicColumn['Effective Date'] + 1).setValues([[effectiveDate]]);
+                            // await sheet.getCell(activeRow, dicColumn['Effective Date'] + 1).setValues([[effectiveDate]]);
+                            await sheet.getCell(activeRow, dicColumn['Effective Date']).setValues([[effectiveDate]]);
                         }
                         
                         console.log("made it here (getLoanInputData) 17");
                         const currentTimeStamp = formatDate(new Date(), 'MM-dd-yyyy hh:mm:ss a');
-                        await sheet.getCell(activeRow, dicColumn['Input Data Timestamp'] + 1).setValues([[currentTimeStamp]]);
-                        await sheet.getCell(activeRow, dicColumn['Loan Input Data'] + 1).setValues([[JSON.stringify(inputDataJSON)]]);
+                        // await sheet.getCell(activeRow, dicColumn['Input Data Timestamp'] + 1).setValues([[currentTimeStamp]]);
+                        // await sheet.getCell(activeRow, dicColumn['Loan Input Data'] + 1).setValues([[JSON.stringify(inputDataJSON)]]);
+                        await sheet.getCell(activeRow, dicColumn['Input Data Timestamp']).setValues([[currentTimeStamp]]);
+                        await sheet.getCell(activeRow, dicColumn['Loan Input Data']).setValues([[JSON.stringify(inputDataJSON)]]);
                     }
                 }
                 console.log("made it here (getLoanInputData) 18");
