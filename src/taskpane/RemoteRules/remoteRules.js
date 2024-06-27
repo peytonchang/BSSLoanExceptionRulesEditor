@@ -494,7 +494,7 @@
             console.error('Fetch error:', error);
         }
     
-        console.log("made it here (fetchServiceInputDataJSON) 6");
+        console.log("made it here (fetchServiceInputDataJSON) 8");
         return inputData;
     }
 
