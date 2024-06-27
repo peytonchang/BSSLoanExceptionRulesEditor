@@ -184,6 +184,7 @@
                 console.log("made it here (getLoanInputData) 4");
                 const dicColumn = getColumnDictionary(headerRange.values[0]);
                 console.log("made it here (getLoanInputData) 4.1");
+                console.log("headerRange.values[0]: " + headerRange.valus[0]);
                 const activeRange = context.workbook.getSelectedRange();
                 console.log("made it here (getLoanInputData) 4.2");
                 activeRange.load('rowIndex');
