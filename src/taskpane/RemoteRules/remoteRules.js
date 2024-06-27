@@ -183,7 +183,8 @@
     
                 console.log("made it here (getLoanInputData) 4");
                 const dicColumn = getColumnDictionary(headerRange.values[0]);
-                console.log("dicColumn: " + dicColumn);
+                console.log("Keys of dicColumn:", Object.keys(dicColumn));
+                console.log("Entries of dicColumn:", Object.entries(dicColumn));
                 console.log("made it here (getLoanInputData) 4.1");
                 console.log("headerRange.values[0]: " + headerRange.values[0]);
                 const activeRange = context.workbook.getSelectedRange();
@@ -206,17 +207,16 @@
                 ruleProjectCell.load('values');
                 loanNumberCell.load('values');
                 await context.sync();
-                console.log("environmentCell: " + environmentCell);
-                console.log("ruleProjectCell: " + ruleProjectCell);
-                console.log("loanNumberCell: " + loanNumberCell)
 
 
-    
                 console.log("made it here (getLoanInputData) 8");
                 // Retrieve the values
                 const environment = environmentCell.values[0][0];
                 const ruleProject = ruleProjectCell.values[0][0];
                 const loanNumber = loanNumberCell.values[0][0];
+                console.log("environment: " + environment);
+                console.log("ruleProject: " + ruleProject);
+                console.log("loanNumber: " + loanNumber);
                 
                 console.log("made it here (getLoanInputData) 9");
                 const serviceParams = getServiceParams(environment, ruleProject);
