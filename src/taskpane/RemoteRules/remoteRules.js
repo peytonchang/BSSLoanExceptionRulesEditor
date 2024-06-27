@@ -131,10 +131,10 @@
     
                 console.log("made it here (viewLoanInputData) 6");
                 // Load necessary cells
-                const environmentCell = sheet.getCell(activeRow, dicColumn['Environment'] + 1);
-                const ruleProjectCell = sheet.getCell(activeRow, dicColumn['Rule Project'] + 1);
-                const loanNumberCell = sheet.getCell(activeRow, dicColumn['Loan #'] + 1);
-                const loanInputDataCell = sheet.getCell(activeRow, dicColumn['Loan Input Data'] + 1);
+                const environmentCell = sheet.getCell(activeRow, dicColumn['Environment']);
+                const ruleProjectCell = sheet.getCell(activeRow, dicColumn['Rule Project']);
+                const loanNumberCell = sheet.getCell(activeRow, dicColumn['Loan #']);
+                const loanInputDataCell = sheet.getCell(activeRow, dicColumn['Loan Input Data']);
     
                 console.log("made it here (viewLoanInputData) 7");
                 environmentCell.load('values');
