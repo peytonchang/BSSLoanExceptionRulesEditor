@@ -169,7 +169,7 @@
                 await context.sync();
     
                 // Assuming viewResultsData is a function to display results
-                viewResultsData();
+                await viewResultsData();
             });
         } catch (error) {
             console.error("Error in executeRules:", error);
@@ -787,5 +787,81 @@
             return '';
         }
     }
+
+    function formatServiceResults(resultsJSON) {
+        console.log("made it here (formatServiceResults) 1");
+        let retVal = '';
+      
+        if (propertyExists(resultsJSON, 'result.serviceResults.businessRules')) {
+            console.log("made it here (formatServiceResults) 2");
+            resultsJSON.result.serviceResults.businessRules.forEach(exceptionRule => {
+            if (!exceptionRule.valid) {
+                console.log("made it here (formatServiceResults) 3");
+                retVal += `${retVal ? ',' : ''}"${exceptionRule.id} - ${exceptionRule.message.replace(/"/g, '\'')}":`;
+                if (propertyExists(exceptionRule, 'facts')) {
+                    console.log("made it here (formatServiceResults) 4");
+                    retVal += '{';
+                    exceptionRule.facts.forEach((fact, index) => {
+                    retVal += `${index ? ',' : ''}"${fact.name}":"${fact.value}"`;
+                    });
+      
+                    if (exceptionRule.validatorClassName != null) {
+                        console.log("made it here (formatServiceResults) 5");
+                    retVal += `,"validatorClassName":"${exceptionRule.validatorClassName}"`;
+                    }
+                    retVal += '}';
+              } else {
+                    retVal += '""';
+              }
+            }
+        });
+        } else if (propertyExists(resultsJSON, 'result.serviceResults.approvalConditionItems')) {
+            console.log("made it here (formatServiceResults) 6");
+            resultsJSON.result.serviceResults.approvalConditionItems.forEach(conditionItem => {
+                if (conditionItem.selected) {
+                    console.log("made it here (formatServiceResults) 7");
+                    retVal += `${retVal ? ',' : ''}"${conditionItem.id}${conditionItem.borrowerId ? ' [' + conditionItem.borrowerId + ']' : ''} - ${conditionItem.description.replace(/"/g, '\'')}":{`;
+                    conditionItem.mergedText = conditionItem.mergedText.replace(/"/g, '\'').replace(/\n/g,'<br>');
+                    retVal += `"mergedText":"${conditionItem.mergedText}", "responsibleParty":"${conditionItem.responsibleParty}", "required":"${conditionItem.required}"`;
+      
+                    if (conditionItem.preSelectionClassName != null) {
+                        console.log("made it here (formatServiceResults) 8");
+                    retVal += `,"preSelectionClassName":"${conditionItem.preSelectionClassName}"`;
+                }
+                retVal += '}';
+            }
+          });
+        } else if (propertyExists(resultsJSON, 'result.serviceResults.documentServiceResults')) {
+            console.log("made it here (formatServiceResults) 9");
+            resultsJSON.result.serviceResults.documentServiceResults.forEach(docResult => {
+            const documentPackage = docResult.documentPackage;
+            retVal += `${retVal ? ',' : ''}"${documentPackage.id} - ${documentPackage.description}${documentPackage.applicable ? '' : ' (Not Available)'}":{`;
+            retVal += `"applicable":"${documentPackage.applicable}"`;
+      
+            if (propertyExists(documentPackage, 'applicabilityExceptions')) {
+                console.log("made it here (formatServiceResults) 10");
+                retVal += `,"applicabilityExceptions":"`;
+                documentPackage.applicabilityExceptions.forEach((exception, index) => {
+                retVal += `${index ? '<br>' : ''}${exception}`;
+                });
+                retVal += '"';
+            }
+      
+            console.log("made it here (formatServiceResults) 11");
+            retVal += `,"disclosureType":"${documentPackage.disclosureType}"`;
+            if (documentPackage.applicabilityEvaluatorClassName != null) {
+                retVal += `,"applicabilityEvaluatorClassName":"${documentPackage.applicabilityEvaluatorClassName}"`;
+            }
+            retVal += '}';
+            });
+        } else if (propertyExists(resultsJSON, 'result.serviceResults.feeResults')) {
+            condenseJSON(resultsJSON);
+            retVal = JSON.stringify(resultsJSON.result.serviceResults);
+        } else {
+          // Add other conditional blocks similarly
+        }
+      
+        return `${retVal.startsWith('{') ? '' : '{'}${retVal}${retVal.startsWith('{') ? '' : '}'}`;
+      }
 
 })();
