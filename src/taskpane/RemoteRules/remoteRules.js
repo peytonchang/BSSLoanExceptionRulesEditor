@@ -1131,7 +1131,7 @@
             output += formatOption("==========", 10);
         });
     
-        if (pricingResult.embeddedAdjustments) {
+        if (propertyExists(pricingResult, 'embeddedAdjustments')) {
             console.log("made it here (outputPricingResult) 6");
             pricingResult.embeddedAdjustments.forEach(adjustment => {
                 output += '\n' + formatLine([adjustment.adjustmentId + " (" + adjustment.category + ")", "Embedded Adjustment: " + adjustment.description, adjustment.noteRatePct.toFixed(3), adjustment.pricePct.toFixed(3)], 40, 60, 10, 10);
@@ -1143,7 +1143,7 @@
     
         const totalPriceArray = [];
     
-        if (baseRate) {
+        if (propertyExists(pricingResult, 'baseRate')) {
             console.log("made it here (outputPricingResult) 7");
             output += '\n' + formatLine(["", "Base Rate", baseRate.noteRatePct.toFixed(3), baseRate.pricePct.toFixed(3)], 40, 60, 10, 10);
     
@@ -1154,7 +1154,7 @@
             });
         }
     
-        if (pricingResult.adjustments) {
+        if (propertyExists(pricingResult, 'adjustments')) {
             console.log("made it here (outputPricingResult) 8");
             Object.values(pricingResult.adjustments).forEach(adjustment => {
                 output += '\n' + formatLine([adjustment.adjustmentId + " (" + adjustment.category + ")", adjustment.description, adjustment.noteRatePct.toFixed(3), adjustment.pricePct.toFixed(3)], 40, 60, 10, 10);
