@@ -1016,42 +1016,51 @@
     async function viewPricingResults() {
         try {
             await Excel.run(async (context) => {
+                console.log("made it here (viwePricingResults) 1");
                 const sheet = context.workbook.worksheets.getActiveWorksheet();
                 const lastCol = sheet.getUsedRange().getLastColumn();
                 lastCol.load('columnIndex');
                 await context.sync();
     
+                console.log("made it here (viwePricingResults) 2");
                 const headerRange = sheet.getRange("A1:J1");
                 headerRange.load('values');
                 await context.sync();
     
+                console.log("made it here (viwePricingResults) 3");
                 const dicColumn = getColumnDictionary(headerRange.values[0]);
                 const activeCell = context.workbook.getSelectedRange();
                 activeCell.load("rowIndex");
                 await context.sync();
     
+                console.log("made it here (viwePricingResults) 4");
                 const iRow = activeCell.rowIndex;
                 const ruleProjectCell = sheet.getCell(iRow, dicColumn['Rule Project']);
                 const resultsCell = sheet.getCell(iRow, dicColumn['Results']);
     
+                console.log("made it here (viwePricingResults) 5");
                 ruleProjectCell.load('values');
                 resultsCell.load('values');
                 await context.sync();
     
+                console.log("made it here (viwePricingResults) 6");
                 if (ruleProjectCell.values[0][0] !== 'Pricing') {
                     alert('Error', 'This function can only be used with the Pricing Rule Project.');
                 } else {
+                    console.log("made it here (viwePricingResults) 7");
                     let resultsJSON = resultsCell.values[0][0];
                     try {
+                        console.log("made it here (viwePricingResults) 8");
                         resultsJSON = JSON.parse(resultsJSON);
                         let result = '';
     
                         if (propertyExists(resultsJSON, 'pricingResults')) {
+                            console.log("made it here (viwePricingResults) 8");
                             resultsJSON.pricingResults.forEach(pricingResult => {
                                 result += outputPricingResult(pricingResult) + '\n\n';
                             });
                         }
-    
+                        console.log("made it here (viwePricingResults) 9");
                         showPricingResults(result, 'Pricing Results');
                     } catch (error) {
                         console.error('Error parsing results JSON:', error);
@@ -1102,23 +1111,28 @@
     }
 
     function outputPricingResult(pricingResult) {
+        console.log("made it here (outputPricingResult) 1");
         let output = '';
         const baseRate = pricingResult.baseRate;
         const numberOfOptions = (baseRate && baseRate.pricingOptions) ? baseRate.pricingOptions.length : 0;
     
+        console.log("made it here (outputPricingResult) 2");
         output += formatLine(["Adjustment Id", "Description", "Note Rate", "Price"], 40, 60, 10, 10);
     
+        console.log("made it here (outputPricingResult) 3");
         baseRate.pricingOptions.forEach(option => {
             output += formatOption(option.description, 10);
         });
     
         output += '\n' + formatLine(["========================================", "============================================================", "==========", "=========="], 40, 60, 10, 10);
     
+        console.log("made it here (outputPricingResult) 4");
         baseRate.pricingOptions.forEach(() => {
             output += formatOption("==========", 10);
         });
     
         if (pricingResult.embeddedAdjustments) {
+            console.log("made it here (outputPricingResult) 6");
             pricingResult.embeddedAdjustments.forEach(adjustment => {
                 output += '\n' + formatLine([adjustment.adjustmentId + " (" + adjustment.category + ")", "Embedded Adjustment: " + adjustment.description, adjustment.noteRatePct.toFixed(3), adjustment.pricePct.toFixed(3)], 40, 60, 10, 10);
                 baseRate.pricingOptions.forEach(() => {
@@ -1130,6 +1144,7 @@
         const totalPriceArray = [];
     
         if (baseRate) {
+            console.log("made it here (outputPricingResult) 7");
             output += '\n' + formatLine(["", "Base Rate", baseRate.noteRatePct.toFixed(3), baseRate.pricePct.toFixed(3)], 40, 60, 10, 10);
     
             baseRate.pricingOptions.forEach((option, i) => {
@@ -1140,6 +1155,7 @@
         }
     
         if (pricingResult.adjustments) {
+            console.log("made it here (outputPricingResult) 8");
             Object.values(pricingResult.adjustments).forEach(adjustment => {
                 output += '\n' + formatLine([adjustment.adjustmentId + " (" + adjustment.category + ")", adjustment.description, adjustment.noteRatePct.toFixed(3), adjustment.pricePct.toFixed(3)], 40, 60, 10, 10);
                 baseRate.pricingOptions.forEach((_, i) => {
@@ -1150,6 +1166,7 @@
             });
         }
     
+        console.log("made it here (outputPricingResult) 9");
         let totalPrice = pricingResult.totalPrice;
         output += '\n' + formatLine(["", "Total Price", totalPrice.noteRatePct.toFixed(3), totalPrice.pricePct.toFixed(3)], 40, 60, 10, 10);
         totalPriceArray.forEach(price => {
