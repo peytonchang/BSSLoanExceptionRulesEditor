@@ -1013,9 +1013,180 @@
         }
     }
 
-    function viewPricingResults() {
-
+    async function viewPricingResults() {
+        try {
+            await Excel.run(async (context) => {
+                const sheet = context.workbook.worksheets.getActiveWorksheet();
+                const lastCol = sheet.getUsedRange().getLastColumn();
+                lastCol.load('columnIndex');
+                await context.sync();
+    
+                const headerRange = sheet.getRange("A1:J1");
+                headerRange.load('values');
+                await context.sync();
+    
+                const dicColumn = getColumnDictionary(headerRange.values[0]);
+                const activeCell = context.workbook.getSelectedRange();
+                activeCell.load("rowIndex");
+                await context.sync();
+    
+                const iRow = activeCell.rowIndex;
+                const ruleProjectCell = sheet.getCell(iRow, dicColumn['Rule Project']);
+                const resultsCell = sheet.getCell(iRow, dicColumn['Results']);
+    
+                ruleProjectCell.load('values');
+                resultsCell.load('values');
+                await context.sync();
+    
+                if (ruleProjectCell.values[0][0] !== 'Pricing') {
+                    alert('Error', 'This function can only be used with the Pricing Rule Project.');
+                } else {
+                    let resultsJSON = resultsCell.values[0][0];
+                    try {
+                        resultsJSON = JSON.parse(resultsJSON);
+                        let result = '';
+    
+                        if (propertyExists(resultsJSON, 'pricingResults')) {
+                            resultsJSON.pricingResults.forEach(pricingResult => {
+                                result += outputPricingResult(pricingResult) + '\n\n';
+                            });
+                        }
+    
+                        showPricingResults(result, 'Pricing Results');
+                    } catch (error) {
+                        console.error('Error parsing results JSON:', error);
+                        alert('Error', 'Invalid JSON data.');
+                    }
+                }
+            });
+        } catch (error) {
+            console.error("Error in viewPricingResults:", error);
+        }
     }
+
+    function showPricingResults(text, title) {
+        // Create a new popup window for displaying results
+        const newWindow = window.open("", title, "width=1100,height=700");
+        const htmlContent = `
+            <html>
+            <head>
+                <style>
+                    textarea {
+                        width: 98%; 
+                        height: 90%; 
+                        white-space: nowrap;
+                        overflow: auto;
+                        font-family: 'Courier New';
+                        font-size: 10px;
+                    }
+                    button {
+                        width: 100px;
+                        height: 30px;
+                        margin-top: 10px;
+                    }
+                    <script language="javascript">
+                        function closeWindow() {
+                            window.close();
+                        }
+                    </script>
+            </head>
+            <body>
+                <textarea readonly>${text}</textarea>
+                <button onclick="window.close();">Done</button>
+            </body>
+            </html>`;
+    
+        // Write HTML content to the new window and close the document to render it
+        newWindow.document.write(htmlContent);
+        newWindow.document.close();
+    }
+
+    function outputPricingResult(pricingResult) {
+        let output = '';
+        const baseRate = pricingResult.baseRate;
+        const numberOfOptions = (baseRate && baseRate.pricingOptions) ? baseRate.pricingOptions.length : 0;
+    
+        output += formatLine(["Adjustment Id", "Description", "Note Rate", "Price"], 40, 60, 10, 10);
+    
+        baseRate.pricingOptions.forEach(option => {
+            output += formatOption(option.description, 10);
+        });
+    
+        output += '\n' + formatLine(["========================================", "============================================================", "==========", "=========="], 40, 60, 10, 10);
+    
+        baseRate.pricingOptions.forEach(() => {
+            output += formatOption("==========", 10);
+        });
+    
+        if (pricingResult.embeddedAdjustments) {
+            pricingResult.embeddedAdjustments.forEach(adjustment => {
+                output += '\n' + formatLine([adjustment.adjustmentId + " (" + adjustment.category + ")", "Embedded Adjustment: " + adjustment.description, adjustment.noteRatePct.toFixed(3), adjustment.pricePct.toFixed(3)], 40, 60, 10, 10);
+                baseRate.pricingOptions.forEach(() => {
+                    output += formatOption(adjustment.pricePct.toFixed(3), 10);
+                });
+            });
+        }
+    
+        const totalPriceArray = [];
+    
+        if (baseRate) {
+            output += '\n' + formatLine(["", "Base Rate", baseRate.noteRatePct.toFixed(3), baseRate.pricePct.toFixed(3)], 40, 60, 10, 10);
+    
+            baseRate.pricingOptions.forEach((option, i) => {
+                let discountPoints = parseFloat(option.discountPoints) || 0;
+                output += formatOption(discountPoints.toFixed(3), 10);
+                totalPriceArray[i] = discountPoints;
+            });
+        }
+    
+        if (pricingResult.adjustments) {
+            Object.values(pricingResult.adjustments).forEach(adjustment => {
+                output += '\n' + formatLine([adjustment.adjustmentId + " (" + adjustment.category + ")", adjustment.description, adjustment.noteRatePct.toFixed(3), adjustment.pricePct.toFixed(3)], 40, 60, 10, 10);
+                baseRate.pricingOptions.forEach((_, i) => {
+                    let pricePct = parseFloat(adjustment.pricePct) || 0;
+                    output += formatOption(pricePct.toFixed(3), 10);
+                    totalPriceArray[i] += pricePct;
+                });
+            });
+        }
+    
+        let totalPrice = pricingResult.totalPrice;
+        output += '\n' + formatLine(["", "Total Price", totalPrice.noteRatePct.toFixed(3), totalPrice.pricePct.toFixed(3)], 40, 60, 10, 10);
+        totalPriceArray.forEach(price => {
+            output += formatOption(price.toFixed(3), 10);
+        });
+    
+        return output;
+    }
+
+    function formatLine(elements, width1, width2, width3, width4) {
+        // Placeholder for formatting a line with specified widths
+        return `${elements[0].padEnd(width1)}  ${elements[1].padEnd(width2)}  ${elements[2].padEnd(width3)}  ${elements[3].padEnd(width4)}  |`;
+    }
+    
+    function formatOption(description, width) {
+        // Placeholder for formatting an option description to a specific width
+        return `  ${description.padEnd(width)}`;
+    }
+
+    function getString(s, len) {
+        // Ensures the string is truncated to a specific length
+        return s ? s.substring(0, len) : '';
+    }
+    
+    function getTextValue(obj, attribute) {
+        // Safely retrieves a text value from an object
+        return obj && attribute in obj ? obj[attribute] : '';
+    }
+    
+    function getNumericValue(obj, attribute, zeroIfBlank = false) {
+        // Safely retrieves a numeric value from an object or returns 0 if not found (when zeroIfBlank is true)
+        if (obj && attribute in obj && obj[attribute] !== null && obj[attribute] !== undefined) {
+            return parseFloat(obj[attribute]);
+        }
+        return zeroIfBlank ? 0 : null;
+    }
+
 
       
 
