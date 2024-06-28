@@ -1080,32 +1080,46 @@
         const htmlContent = `
             <html>
             <head>
-                <style>
-                    textarea {
-                        width: 98%; 
-                        height: 90%; 
-                        white-space: nowrap;
-                        overflow: auto;
-                        font-family: 'Courier New';
-                        font-size: 10px;
-                    }
-                    button {
-                        width: 100px;
-                        height: 30px;
-                        margin-top: 10px;
-                    }
-                    <script language="javascript">
-                        function closeWindow() {
-                            window.close();
-                        }
-                    </script>
             </head>
-            <body>
-                <textarea readonly>${text}</textarea>
-                <button onclick="window.close();">Done</button>
+            <script language="javascript">
+                function loadJson() {
+                    const jsonData = JSON.parse('${safeJson}');
+                    const wrapper = document.getElementById("wrapper");
+                    const tree = jsonTree.create(jsonData, wrapper);
+                    tree.expand(true);
+                    const nodesToCollapse = ['applicantData', 'employmentData', 'loanOriginators', 'rateLockData', 'specialFeatures', 'blockTotals', 'feeServiceProviders'];
+                    tree.rootNode.childNodes.forEach(node => {
+                        if (nodesToCollapse.includes(node.label)) {
+                            node.collapse(false);
+                        }
+                    });
+                }
+                function closeWindow() {
+                    window.close();
+                }
+            </script>
+            <body onload="loadJson();">
+                <form>
+                    <table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" align="center">
+                        <tr height="100%" align="center">
+                            <td>
+                                <textarea id="wrapper" rows="55" cols="160" style="white-space:nowrap; overflow:auto; font-family:'Courier New'; font-size:10px;">
+                                    ${text}
+                                </textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td align="center">
+                                <input type="button" name="btnDone" value="Done" onclick="closeWindow"/>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
             </body>
             </html>`;
-    
         console.log(htmlContent);
         // Write HTML content to the new window and close the document to render it
         newWindow.document.write(htmlContent);
