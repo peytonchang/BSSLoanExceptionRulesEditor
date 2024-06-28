@@ -1045,7 +1045,7 @@
     
                 console.log("made it here (viwePricingResults) 6");
                 if (ruleProjectCell.values[0][0] !== 'Pricing') {
-                    alert('Error', 'This function can only be used with the Pricing Rule Project.');
+                    console.error('Error', 'This function can only be used with the Pricing Rule Project.');
                 } else {
                     console.log("made it here (viwePricingResults) 7");
                     let resultsJSON = resultsCell.values[0][0];
@@ -1064,7 +1064,7 @@
                         showPricingResults(result, 'Pricing Results');
                     } catch (error) {
                         console.error('Error parsing results JSON:', error);
-                        alert('Error', 'Invalid JSON data.');
+                        console.error('Error', 'Invalid JSON data.');
                     }
                 }
             });
