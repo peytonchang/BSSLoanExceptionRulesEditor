@@ -1074,6 +1074,7 @@
     }
 
     function showPricingResults(text, title) {
+        console.log("made it here (showPricingResults) 1");
         // Create a new popup window for displaying results
         const newWindow = window.open("", title, "width=1100,height=700");
         const htmlContent = `
@@ -1105,6 +1106,7 @@
             </body>
             </html>`;
     
+        console.log(htmlContent);
         // Write HTML content to the new window and close the document to render it
         newWindow.document.write(htmlContent);
         newWindow.document.close();
