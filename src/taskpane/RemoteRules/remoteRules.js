@@ -1082,18 +1082,6 @@
             <head>
             </head>
             <script language="javascript">
-                function loadJson() {
-                    const jsonData = JSON.parse('${safeJson}');
-                    const wrapper = document.getElementById("wrapper");
-                    const tree = jsonTree.create(jsonData, wrapper);
-                    tree.expand(true);
-                    const nodesToCollapse = ['applicantData', 'employmentData', 'loanOriginators', 'rateLockData', 'specialFeatures', 'blockTotals', 'feeServiceProviders'];
-                    tree.rootNode.childNodes.forEach(node => {
-                        if (nodesToCollapse.includes(node.label)) {
-                            node.collapse(false);
-                        }
-                    });
-                }
                 function closeWindow() {
                     window.close();
                 }
