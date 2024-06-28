@@ -11,11 +11,15 @@
         const execute = document.getElementById('executeRules');
         const viewInputData = document.getElementById('viewLoanInputData');
         const viewResultData = document.getElementById('viewResultsData');
+        const executeRulesRaw = document.getElementById('executeRulesRawResults');
+        const viewPricing = document.getElementById('viewPricingResults');
 
         getAndDisplay.addEventListener('click', getAndDisplayLoanInputData);
         execute.addEventListener('click', executeRules);    
         viewInputData.addEventListener('click', viewLoanInputData); 
         viewResultData.addEventListener('click', viewResultsData);
+        executeRulesRaw.addEventListener('click', executeRulesRawResults);
+        viewPricing.addEventListener('click', viewPricingResults);
     }
 
     async function getAndDisplayLoanInputData() {
@@ -896,12 +900,12 @@
       }
 
     
-      
-      async function fetchServiceResultsJSON(serviceParams, loanNumber, inputDataJson) {
+    
+    async function fetchServiceResultsJSON(serviceParams, loanNumber, inputDataJson) {
 
         let resultsJSON;
         const accessToken = await getAccessToken(serviceParams);  // Assuming this is an async function
-      
+        
         const url = `https://${serviceParams[0]}/lendingservices/externalServices/${serviceParams[3]}`;
         const options = { 
             method: 'post',
@@ -931,7 +935,88 @@
         }
       
         return resultsJSON;
-      }
+    }
+
+    async function executeRulesRawResults() {
+        try {
+            await Excel.run(async (context) => {
+                console.log("made it here (executeRulesRawResults) 1");
+                const sheet = context.workbook.worksheets.getActiveWorksheet();
+                const lastCol = sheet.getUsedRange().getLastColumn();
+                lastCol.load('columnIndex');
+                await context.sync();
+    
+                console.log("made it here (executeRulesRawResults) 2");
+                const headerRange = sheet.getRange("A1:J1");
+                headerRange.load('values');
+                await context.sync();
+    
+                console.log("made it here (executeRulesRawResults) 3");
+                const dicColumn = getColumnDictionary(headerRange.values[0]);
+                const activeCell = context.workbook.getSelectedRange();
+                activeCell.load("rowIndex");
+                await context.sync();
+    
+                const iRow = activeCell.rowIndex;
+    
+                console.log("made it here (executeRulesRawResults) 4");
+                const environmentCell = sheet.getCell(iRow, dicColumn['Environment']);
+                const ruleProjectCell = sheet.getCell(iRow, dicColumn['Rule Project']);
+                const loanNumberCell = sheet.getCell(iRow, dicColumn['Loan #']);
+                const effectiveDateCell = sheet.getCell(iRow, dicColumn['Effective Date']);
+                const inputDataJsonCell = sheet.getCell(iRow, dicColumn['Loan Input Data']);
+    
+                console.log("made it here (executeRulesRawResults) 5");
+                environmentCell.load('values');
+                ruleProjectCell.load('values');
+                loanNumberCell.load('values');
+                effectiveDateCell.load('values');
+                inputDataJsonCell.load('values');
+                await context.sync();
+    
+                console.log("made it here (executeRulesRawResults) 6");
+                let inputDataJson = inputDataJsonCell.values[0][0];
+                const environment = environmentCell.values[0][0];
+                const ruleProject = ruleProjectCell.values[0][0];
+                const loanNumber = loanNumberCell.values[0][0];
+                const effectiveDate = effectiveDateCell.values[0][0];
+    
+                console.log("made it here (executeRulesRawResults) 7");
+                if (!inputDataJson) {
+                    console.log("made it here (executeRulesRawResults) 8");
+                    await getLoanInputData();
+                    await context.sync();
+                    inputDataJsonCell.load('values');
+                    await context.sync();
+                    inputDataJson = inputDataJsonCell.values[0][0]; // Reload value after update
+                }
+    
+                if (inputDataJson) {
+                    console.log("made it here (executeRulesRawResults) 9");
+                    let tmpJson = JSON.parse(inputDataJson);
+                    tmpJson.pricingDate = effectiveDate;
+                    tmpJson.loanEligibilityDate = effectiveDate;
+                    inputDataJson = JSON.stringify(tmpJson);
+                }
+    
+                console.log("made it here (executeRulesRawResults) 10");
+                const serviceParams = getServiceParams(environment, ruleProject);
+                const resultsJSON = await fetchServiceResultsJSON(serviceParams, loanNumber, inputDataJson);
+    
+                if (resultsJSON && resultsJSON.result) {
+                    console.log("made it here (executeRulesRawResults) 11");
+                    showJSON(JSON.stringify(resultsJSON), `${ruleProject} Results Viewer (Raw) - ${environment} #${loanNumber}`);
+                }
+            });
+        } catch (error) {
+            console.error("Error in executeRulesViewResultsDataRaw:", error);
+        }
+    }
+
+    function viewPricingResults() {
+
+    }
+
       
 
 })();
