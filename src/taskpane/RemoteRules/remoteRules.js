@@ -1101,7 +1101,7 @@
                         </tr>
                         <tr>
                             <td align="center">
-                                <input type="button" name="btnDone" value="Done" onclick="closeWindow"/>
+                                <input type="button" name="btnDone" value="Done" onclick="closeWindow();"/>
                             </td>
                         </tr>
                     </table>
