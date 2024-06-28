@@ -84,7 +84,7 @@
     display: block;
     width: 11px;
     height: 11px;
-    background-image: url('http://http://summerstyle.github.io/jsonTreeViewer/icons.svg'); //i67.tinypic.com/2ugz2nb.jpg
+    /* background-image: url('http://summerstyle.github.io/jsonTreeViewer/icons.svg');  */
 }
 .jsontree_node_expanded > .jsontree_label-wrapper > .jsontree_label > .jsontree_expand-button {
     background-position: 0 -11px;

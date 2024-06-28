@@ -905,7 +905,8 @@
             method: 'post',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${accessToken}`
+                'Authorization': `Bearer ${accessToken}`,
+                'Access-Control-Allow-Origin': 'https://peytonchang.github.io'
                 },
             body: JSON.stringify({
                 bypassLogging: true,
