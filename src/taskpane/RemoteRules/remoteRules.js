@@ -525,7 +525,7 @@
                         }
                     });
                 }
-                function close() {
+                function closeWindow() {
                     window.close();
                 }
                 </script>
@@ -534,7 +534,7 @@
                 <table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" align="center">
                     <tr height="100%"><td id="wrapper"></td></tr>
                     <tr><td>&nbsp;</td></tr>
-                    <tr><td align="center"><button onclick="close();">Done</button></td></tr>
+                    <tr><td align="center"><button onclick="closeWindow();">Done</button></td></tr>
                 </table>
             </body>
             </html>`;
