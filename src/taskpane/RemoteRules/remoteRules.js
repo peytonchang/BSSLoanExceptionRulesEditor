@@ -525,13 +525,16 @@
                         }
                     });
                 }
+                function close() {
+                    window.close();
+                }
                 </script>
             </head>
             <body onload="loadJson();">
                 <table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" align="center">
                     <tr height="100%"><td id="wrapper"></td></tr>
                     <tr><td>&nbsp;</td></tr>
-                    <tr><td align="center"><button onclick="closeModal();">Done</button></td></tr>
+                    <tr><td align="center"><button onclick="close();">Done</button></td></tr>
                 </table>
             </body>
             </html>`;
@@ -543,10 +546,6 @@
         newWindow.document.write(htmlContent);
         console.log("made it here (showJSON) 5");
         newWindow.document.close(); // Close the document to parse the HTML
-    }
-    
-    function closeModal() {
-        window.close(); // This will close the modal window
     }
     
     function getServiceParams(environment, ruleProject) {
