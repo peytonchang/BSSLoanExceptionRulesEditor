@@ -1111,6 +1111,7 @@
     }
 
     function outputPricingResult(pricingResult) {
+        console.log("made it here (outputPricingResult) 1");
         let baseRate = pricingResult.baseRate;
         let numberOfOptions = propertyExists(pricingResult, 'baseRate.pricingOptions') ? baseRate.pricingOptions.length : 0;
         let output = systemOutFormat("%-40s  %-60s  %10s  %10s  |", ["Adjustment Id", "Description", "Note Rate", "Price"]);
@@ -1118,14 +1119,16 @@
         for (let i = 0; i < numberOfOptions; i++) {
             output += systemOutFormat("  %10s", [baseRate.pricingOptions[i].description]);
         }
-    
+        console.log("made it here (outputPricingResult) 2");
         output += '\n' + systemOutFormat("%-40s  %-60s  %10s  %10s  |", ["========================================", "============================================================", "==========", "=========="]);
     
         for (let i = 0; i < numberOfOptions; i++) {
             output += systemOutFormat("  %10s", ["=========="]);
         }
     
+        console.log("made it here (outputPricingResult) 3");
         if (propertyExists(pricingResult, 'embeddedAdjustments')) {
+            console.log("made it here (outputPricingResult) 4");
             for (let adjustment of pricingResult.embeddedAdjustments) {
                 output += '\n' + systemOutFormat("%-40s  %-60s  %10.3f  %10.3f  |", [getString(adjustment.adjustmentId + " (" + adjustment.category + ")", 40), "Embedded Adjustment: " + getString(adjustment.description, 60), adjustment.noteRatePct, adjustment.pricePct]);
                 for (let i = 0; i < numberOfOptions; i++) {
@@ -1136,7 +1139,9 @@
     
         let totalPriceArray = new Array(numberOfOptions).fill(0);
     
+        console.log("made it here (outputPricingResult) 5");
         if (propertyExists(pricingResult, 'baseRate')) {
+            console.log("made it here (outputPricingResult) 6");
             output += '\n' + systemOutFormat("%-40s  %-60s  %10.3f  %10.3f  |", ["", "Base Rate", pricingResult.baseRate.noteRatePct, pricingResult.baseRate.pricePct]);
             for (let i = 0; i < numberOfOptions; i++) {
                 let discountPoints = getNumericValue(pricingResult.baseRate.pricingOptions[i], 'discountPoints', true);
@@ -1145,7 +1150,9 @@
             }
         }
     
+        console.log("made it here (outputPricingResult) 7");
         if (propertyExists(pricingResult, 'adjustments')) {
+            console.log("made it here (outputPricingResult) 8");
             for (let adjustment of pricingResult.adjustments) {
                 output += '\n' + systemOutFormat("%-40s  %-60s  %10.3f  %10.3f  |", [getString(getTextValue(adjustment, 'adjustmentId') + " (" + getTextValue(adjustment, 'category') + ")", 40), getString(getTextValue(adjustment, 'description'), 60), getNumericValue(adjustment, 'noteRatePct', true), getNumericValue(adjustment, 'pricePct', true)]);
                 for (let i = 0; i < numberOfOptions; i++) {
@@ -1156,6 +1163,7 @@
             }
         }
     
+        console.log("made it here (outputPricingResult) 9");
         let totalPrice = pricingResult.totalPrice;
         output += '\n' + systemOutFormat("%-40s  %-60s  %10.3f  %10.3f  |", ["", "Total Price", totalPrice.noteRatePct, totalPrice.pricePct]);
         for (let i = 0; i < totalPriceArray.length; i++) {
@@ -1163,17 +1171,6 @@
         }
     
         return output;
-    }
-    
-
-    function formatLine(elements, width1, width2, width3, width4) {
-        // Placeholder for formatting a line with specified widths
-        return `${elements[0].padEnd(width1)}  ${elements[1].padEnd(width2)}  ${elements[2].padEnd(width3)}  ${elements[3].padEnd(width4)}  |`;
-    }
-    
-    function formatOption(description, width) {
-        // Placeholder for formatting an option description to a specific width
-        return `  ${description.padEnd(width)}`;
     }
 
     function getString(s, len) {
@@ -1195,6 +1192,7 @@
     }
 
     function systemOutFormat(formatString, values) {
+        console.log("made it here (systemOutFormat) 1");
         let formattedString = formatString;
     
         // This regex matches each format specifier
