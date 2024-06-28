@@ -457,7 +457,9 @@
         const accessToken = await getAccessToken(serviceParams);  // Assuming getAccessToken is an async function
         const headers = new Headers({
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${accessToken}`
+            "Authorization": `Bearer ${accessToken}`,
+            "Access-Control-Allow-Origin": "https://peytonchang.github.io"
+
         });
     
         console.log("made it here (fetchServiceInputDataJSON) 2");
@@ -905,8 +907,7 @@
             method: 'post',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${accessToken}`,
-                'Access-Control-Allow-Origin': 'https://peytonchang.github.io'
+                'Authorization': `Bearer ${accessToken}`
                 },
             body: JSON.stringify({
                 bypassLogging: true,
