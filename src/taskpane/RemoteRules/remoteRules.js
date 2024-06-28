@@ -1111,70 +1111,60 @@
     }
 
     function outputPricingResult(pricingResult) {
-        console.log("made it here (outputPricingResult) 1");
-        let output = '';
-        const baseRate = pricingResult.baseRate;
-        const numberOfOptions = (baseRate && baseRate.pricingOptions) ? baseRate.pricingOptions.length : 0;
+        let baseRate = pricingResult.baseRate;
+        let numberOfOptions = propertyExists(pricingResult, 'baseRate.pricingOptions') ? baseRate.pricingOptions.length : 0;
+        let output = systemOutFormat("%-40s  %-60s  %10s  %10s  |", ["Adjustment Id", "Description", "Note Rate", "Price"]);
     
-        console.log("made it here (outputPricingResult) 2");
-        output += formatLine(["Adjustment Id", "Description", "Note Rate", "Price"], 40, 60, 10, 10);
-    
-        console.log("made it here (outputPricingResult) 3");
-        baseRate.pricingOptions.forEach(option => {
-            output += formatOption(option.description, 10);
-        });
-    
-        output += '\n' + formatLine(["========================================", "============================================================", "==========", "=========="], 40, 60, 10, 10);
-    
-        console.log("made it here (outputPricingResult) 4");
-        baseRate.pricingOptions.forEach(() => {
-            output += formatOption("==========", 10);
-        });
-    
-        if (propertyExists(pricingResult, 'embeddedAdjustments')) {
-            console.log("made it here (outputPricingResult) 6");
-            pricingResult.embeddedAdjustments.forEach(adjustment => {
-                output += '\n' + formatLine([adjustment.adjustmentId + " (" + adjustment.category + ")", "Embedded Adjustment: " + adjustment.description, adjustment.noteRatePct.toFixed(3), adjustment.pricePct.toFixed(3)], 40, 60, 10, 10);
-                baseRate.pricingOptions.forEach(() => {
-                    output += formatOption(adjustment.pricePct.toFixed(3), 10);
-                });
-            });
+        for (let i = 0; i < numberOfOptions; i++) {
+            output += systemOutFormat("  %10s", [baseRate.pricingOptions[i].description]);
         }
     
-        const totalPriceArray = [];
+        output += '\n' + systemOutFormat("%-40s  %-60s  %10s  %10s  |", ["========================================", "============================================================", "==========", "=========="]);
+    
+        for (let i = 0; i < numberOfOptions; i++) {
+            output += systemOutFormat("  %10s", ["=========="]);
+        }
+    
+        if (propertyExists(pricingResult, 'embeddedAdjustments')) {
+            for (let adjustment of pricingResult.embeddedAdjustments) {
+                output += '\n' + systemOutFormat("%-40s  %-60s  %10.3f  %10.3f  |", [getString(adjustment.adjustmentId + " (" + adjustment.category + ")", 40), "Embedded Adjustment: " + getString(adjustment.description, 60), adjustment.noteRatePct, adjustment.pricePct]);
+                for (let i = 0; i < numberOfOptions; i++) {
+                    output += systemOutFormat("  %10.3f", [adjustment.pricePct]);
+                }
+            }
+        }
+    
+        let totalPriceArray = new Array(numberOfOptions).fill(0);
     
         if (propertyExists(pricingResult, 'baseRate')) {
-            console.log("made it here (outputPricingResult) 7");
-            output += '\n' + formatLine(["", "Base Rate", baseRate.noteRatePct.toFixed(3), baseRate.pricePct.toFixed(3)], 40, 60, 10, 10);
-    
-            baseRate.pricingOptions.forEach((option, i) => {
-                let discountPoints = parseFloat(option.discountPoints) || 0;
-                output += formatOption(discountPoints.toFixed(3), 10);
-                totalPriceArray[i] = discountPoints;
-            });
+            output += '\n' + systemOutFormat("%-40s  %-60s  %10.3f  %10.3f  |", ["", "Base Rate", pricingResult.baseRate.noteRatePct, pricingResult.baseRate.pricePct]);
+            for (let i = 0; i < numberOfOptions; i++) {
+                let discountPoints = getNumericValue(pricingResult.baseRate.pricingOptions[i], 'discountPoints', true);
+                output += systemOutFormat("  %10.3f", [discountPoints]);
+                totalPriceArray[i] += parseFloat(discountPoints);
+            }
         }
     
         if (propertyExists(pricingResult, 'adjustments')) {
-            console.log("made it here (outputPricingResult) 8");
-            Object.values(pricingResult.adjustments).forEach(adjustment => {
-                output += '\n' + formatLine([adjustment.adjustmentId + " (" + adjustment.category + ")", adjustment.description, adjustment.noteRatePct.toFixed(3), adjustment.pricePct.toFixed(3)], 40, 60, 10, 10);
-                baseRate.pricingOptions.forEach((_, i) => {
-                    let pricePct = parseFloat(adjustment.pricePct) || 0;
-                    output += formatOption(pricePct.toFixed(3), 10);
-                    totalPriceArray[i] += pricePct;
-                });
-            });
+            for (let adjustment of pricingResult.adjustments) {
+                output += '\n' + systemOutFormat("%-40s  %-60s  %10.3f  %10.3f  |", [getString(getTextValue(adjustment, 'adjustmentId') + " (" + getTextValue(adjustment, 'category') + ")", 40), getString(getTextValue(adjustment, 'description'), 60), getNumericValue(adjustment, 'noteRatePct', true), getNumericValue(adjustment, 'pricePct', true)]);
+                for (let i = 0; i < numberOfOptions; i++) {
+                    let pricePct = getNumericValue(adjustment, 'pricePct', true);
+                    output += systemOutFormat("  %10.3f", [pricePct]);
+                    totalPriceArray[i] += parseFloat(pricePct);
+                }
+            }
         }
     
-        console.log("made it here (outputPricingResult) 9");
         let totalPrice = pricingResult.totalPrice;
-        output += '\n' + formatLine(["", "Total Price", totalPrice.noteRatePct.toFixed(3), totalPrice.pricePct.toFixed(3)], 40, 60, 10, 10);
-        totalPriceArray.forEach(price => {
-            output += formatOption(price.toFixed(3), 10);
-        });
+        output += '\n' + systemOutFormat("%-40s  %-60s  %10.3f  %10.3f  |", ["", "Total Price", totalPrice.noteRatePct, totalPrice.pricePct]);
+        for (let i = 0; i < totalPriceArray.length; i++) {
+            output += systemOutFormat("  %10.3f", [totalPriceArray[i]]);
+        }
     
         return output;
     }
+    
 
     function formatLine(elements, width1, width2, width3, width4) {
         // Placeholder for formatting a line with specified widths
@@ -1204,7 +1194,43 @@
         return zeroIfBlank ? 0 : null;
     }
 
-
-      
+    function systemOutFormat(formatString, values) {
+        let formattedString = formatString;
+    
+        // This regex matches each format specifier
+        const regex = /%(-?\d+)?(\.\d+)?[sfd]/g;
+        let match;
+        let index = 0;
+    
+        while ((match = regex.exec(formatString)) && index < values.length) {
+            let value = values[index++];
+            let fullMatch = match[0];
+            let width = parseInt(match[1], 10);
+            let precision = match[2] ? parseInt(match[2].slice(1), 10) : null;
+    
+            if (fullMatch.includes('s')) { // String formatter
+                value = value.toString();
+                if (precision != null) value = value.substring(0, precision);
+                if (width != null) {
+                    if (width < 0) {
+                        value = value.padEnd(Math.abs(width), ' ');
+                    } else {
+                        value = value.padStart(width, ' ');
+                    }
+                }
+            } else if (fullMatch.includes('f') || fullMatch.includes('d')) { // Float/double formatter
+                value = Number(value).toFixed(precision != null ? precision : 0);
+                if (width != null) {
+                    value = value.padStart(width, ' ');
+                }
+            }
+    
+            // Replace the first occurrence of the format specifier in the string
+            formattedString = formattedString.replace(fullMatch, value);
+        }
+    
+        return formattedString;
+    }
+    
 
 })();
