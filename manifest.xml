@@ -30,10 +30,9 @@
           </GetStarted>
           <FunctionFile resid="Commands.Url"/>
           <ExtensionPoint xsi:type="PrimaryCommandSurface">
-            <CustomTab id="MyCustomTab">
-              <Label resid="CustomTabLabel"/>
-              <Group id="MyCustomGroup">
-                <Label resid="MyCustomGroupLabel"/>
+            <OfficeTab id="TabHome">
+              <Group id="CommandsGroup">
+                <Label resid="CommandsGroup.Label"/>
                 <Icon>
                   <bt:Image size="16" resid="Icon.16x16"/>
                   <bt:Image size="32" resid="Icon.32x32"/>
@@ -42,7 +41,7 @@
                 <Control xsi:type="Button" id="TaskpaneButton">
                   <Label resid="TaskpaneButton.Label"/>
                   <Supertip>
-                    <Title resid="TaskpaneButton.Title"/>
+                    <Title resid="TaskpaneButton.Label"/>
                     <Description resid="TaskpaneButton.Tooltip"/>
                   </Supertip>
                   <Icon>
@@ -56,7 +55,7 @@
                   </Action>
                 </Control>
               </Group>
-            </CustomTab>  
+            </OfficeTab>
           </ExtensionPoint>
         </DesktopFormFactor>
       </Host>
