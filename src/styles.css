@@ -1,0 +1,25 @@
+/* Selects the body element */
+body {
+    font-family: Arial, sans-serif; /* Sets a clean, modern font for the body */
+    padding: 20px; /* Adds padding around the content */
+    background-color: #f4f4f4; /* Light grey background for slight contrast */
+}
+
+/* Selects all button elements */
+button {
+    width: 100%; /* Makes each button full width of its container */
+    padding: 10px 20px; /* Adds padding inside the buttons for better touch */
+    margin-top: 10px; /* Adds top margin for spacing between buttons */
+    background-color: #0078D7; /* Sets a default blue color for buttons */
+    color: white; /* White text for better readability */
+    border: none; /* Removes default border */
+    border-radius: 5px; /* Rounds the corners of the buttons */
+    cursor: pointer; /* Changes cursor to pointer to indicate it's clickable */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Subtle shadow for 3D effect */
+    font-size: 16px; /* Increases the font size for better visibility */
+}
+
+/* Selects button elements on hover */
+button:hover {
+    background-color: #005ba1; /* Darker blue on hover for interactive feedback */
+}
