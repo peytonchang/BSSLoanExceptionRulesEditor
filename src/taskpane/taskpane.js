@@ -14,6 +14,7 @@
             const loginButton = document.getElementById('loginButton');
             if (loginButton) {
                 loginButton.addEventListener('click', login);
+                loginButton.addEventListener('keydown', login)
             }
         } else {
             if (!window.location.pathname.endsWith('home.html')) {
