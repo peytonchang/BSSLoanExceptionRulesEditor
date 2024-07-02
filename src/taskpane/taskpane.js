@@ -12,9 +12,10 @@
         if (!loggedIn) {
             // Ensure the loginButton exists before adding an event listener
             const loginButton = document.getElementById('loginButton');
+            const textBox = document.getElementById('passwordInput');
             if (loginButton) {
                 loginButton.addEventListener('click', login);
-                loginButton.addEventListener('keydown', login);
+                textBox.addEventListener('keydown', login);
             }
         } else {
             if (!window.location.pathname.endsWith('home.html')) {
