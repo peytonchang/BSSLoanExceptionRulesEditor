@@ -13,6 +13,7 @@
         const viewResultData = document.getElementById('viewResultsData');
         const executeRulesRaw = document.getElementById('executeRulesRawResults');
         const viewPricing = document.getElementById('viewPricingResults');
+        const home = document.getElementById('goHome');
 
         getAndDisplay.addEventListener('click', getAndDisplayLoanInputData);
         execute.addEventListener('click', executeRules);    
@@ -20,6 +21,11 @@
         viewResultData.addEventListener('click', viewResultsData);
         executeRulesRaw.addEventListener('click', executeRulesRawResults);
         viewPricing.addEventListener('click', viewPricingResults);
+        home.addEventListener('click', goHome);
+    }
+
+    function goHome() {
+        window.location.href = 'https://peytonchang.github.io/BSSLoanExceptionRulesEditor/src/taskpane/home.html';
     }
 
     async function getAndDisplayLoanInputData() {
