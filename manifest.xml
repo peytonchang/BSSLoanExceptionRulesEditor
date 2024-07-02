@@ -13,7 +13,7 @@
     <AppDomain>https://peytonchang.github.io/BSSLoanExceptionRulesEditor</AppDomain>
   </AppDomains>
   <Hosts>
-    <Host Name="Workbook"/>
+    <Host Name="Document"/>
   </Hosts>
   <DefaultSettings>
     <SourceLocation DefaultValue="https://peytonchang.github.io/BSSLoanExceptionRulesEditor/src/taskpane/taskpane.html"/>
@@ -21,7 +21,7 @@
   <Permissions>ReadWriteDocument</Permissions>
   <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
     <Hosts>
-      <Host xsi:type="Workbook">
+      <Host xsi:type="Document">
         <DesktopFormFactor>
           <GetStarted>
             <Title resid="GetStarted.Title"/>
