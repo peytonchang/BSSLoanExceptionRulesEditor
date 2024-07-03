@@ -19,6 +19,7 @@
             if (!window.location.pathname.endsWith('home.html')) {
                 window.location.href = 'home.html';
             } else {
+                console.log("made it here 1");
                 // Ensure the open-dialog-btn exists before adding an event listener
                 const openDialogButton = document.getElementById('open-dialog-btn');
                 const openRulesConditions = document.getElementById('rulesConditions');
@@ -89,10 +90,12 @@
     }
 
     function toggleDropdown() {
+        console.log("made it here 2");
         document.getElementById("dropdown-content").classList.toggle("show");
     }
 
     window.onclick = function(event) {
+        console.log("made it here 3");
         if (!event.target.matches('.dropbtn')) {
             var dropdowns = document.getElementsByClassName("dropdown-content");
             for (var i = 0; i < dropdowns.length; i++) {
