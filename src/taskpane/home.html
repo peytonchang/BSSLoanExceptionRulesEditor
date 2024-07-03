@@ -19,34 +19,23 @@
 <head>
     <script src="https://appsforoffice.microsoft.com/lib/1/hosted/Office.js"></script>
     <title>Task Pane</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif; /* Sets a clean, modern font for the body */
-            padding: 20px; /* Adds padding around the content */
-            background-color: #f4f4f4; /* Light grey background for slight contrast */
-        }
-        button {
-            width: 100%; /* Makes each button full width of its container */
-            padding: 10px 20px; /* Adds padding inside the buttons for better touch */
-            margin-top: 10px; /* Adds top margin for spacing between buttons */
-            background-color: #0078D7; /* Sets a default blue color for buttons */
-            color: white; /* White text for better readability */
-            border: none; /* Removes default border */
-            border-radius: 5px; /* Rounds the corners of the buttons */
-            cursor: pointer; /* Changes cursor to pointer to indicate it's clickable */
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Subtle shadow for 3D effect */
-            font-size: 16px; /* Increases the font size for better visibility */
-        }
-        button:hover {
-            background-color: #005ba1; /* Darker blue on hover for interactive feedback */
-        }
-    </style>
+    <link rel="stylesheet" href="https://peytonchang.github.io/BSSLoanExceptionRulesEditor/src/styles.css">
 </head>
 <body>
     <button id="open-dialog-btn">Open Dialog</button>
     <button id="rulesConditions">Open Rules</button>  
     <div id="content-container"></div>
     <button id="openUrl">Load Content</button>
+
+    <div class="dropdown">
+        <button>Remote Rules</button>
+        <div class="content">
+            <button id="test1">Test 1</button>
+            <button id="test2">Test 2</button>
+            <button id="test3">Test 3</button>
+        </div>
+    </div>
+
     <button id="remoteRules">Remote Rules Home</button>
     <script src="taskpane.js"></script>
 </body>
