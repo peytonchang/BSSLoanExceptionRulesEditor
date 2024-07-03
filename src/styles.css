@@ -73,6 +73,6 @@ button:hover {
     background-color: #005ba1;
 }
 
-.dropdown-content.show {
-    max-height: 500px;
+.show {
+    display: block;
 }

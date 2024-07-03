@@ -94,7 +94,17 @@
         document.getElementById("dropdown-content").classList.toggle("show");
     }
 
-    
+    function toggleDropdown() {
+        const dropdownContent = document.getElementById("dropdown-content");
+        if (dropdownContent) {
+            if (!dropdownContent.classList.contains("show")) {
+                dropdownContent.style.maxHeight = dropdownContent.scrollHeight + "px";
+            } else {
+                dropdownContent.style.maxHeight = null;
+            }
+            dropdownContent.classList.toggle("show");
+        }
+    }
 
     window.onclick = function(event) {
         console.log("made it here 3");
