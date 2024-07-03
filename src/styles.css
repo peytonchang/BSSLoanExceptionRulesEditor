@@ -3,11 +3,7 @@ body {
     font-family: Arial, sans-serif; /* Sets a clean, modern font for the body */
     padding: 20px; /* Adds padding around the content */
     background-color: #3c3c3c; /* Light grey background for slight contrast */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* Full height of the viewport */
-    margin: 0;
+
 }
 
 /* button {
