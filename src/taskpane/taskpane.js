@@ -94,6 +94,8 @@
         document.getElementById("dropdown-content").classList.toggle("show");
     }
 
+    
+
     window.onclick = function(event) {
         console.log("made it here 3");
         if (!event.target.matches('.dropbtn')) {
