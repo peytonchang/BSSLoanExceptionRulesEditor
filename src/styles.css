@@ -104,7 +104,7 @@ button {
 }
 
 .dropbtn {
-    width: 100%;
+    /* width: 100%;
     padding: 10px 20px;
     background-color: #0078D7;
     color: white;
@@ -112,11 +112,31 @@ button {
     border-radius: 5px;
     cursor: pointer;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    font-size: 16px;
+    font-size: 16px; */
+    position: relative;
+    padding: 10px 20px;
+    border-radius: 7px;
+    border: 1px solid rgb(61, 106, 255);
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 2px;
+    background: transparent;
+    color: #fff;
+    overflow: hidden;
+    box-shadow: 0 0 0 0 transparent;
+    -webkit-transition: all 0.2s ease-in;
+    -moz-transition: all 0.2s ease-in;
+    transition: all 0.2s ease-in;
 }
 
 .dropbtn:hover {
-    background-color: #005ba1;
+    /* background-color: #005ba1; */
+    background: rgb(61, 106, 255);
+    box-shadow: 0 0 30px 5px rgba(0, 142, 236, 0.815);
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out;
 }
 
 .dropdown-content {
@@ -132,18 +152,38 @@ button {
 }
 
 .dropdown-content button {
-    background-color: #0078D7;
+    /* background-color: #0078D7;
     color: white;
     border: none;
     border-radius: 0;
     box-shadow: none;
     margin: 0;
     font-size: 16px;
-    width: 100%;
+    width: 100%; */
+    position: relative;
+    padding: 10px 20px;
+    border-radius: 7px;
+    border: 1px solid rgb(61, 106, 255);
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 2px;
+    background: transparent;
+    color: #fff;
+    overflow: hidden;
+    box-shadow: 0 0 0 0 transparent;
+    -webkit-transition: all 0.2s ease-in;
+    -moz-transition: all 0.2s ease-in;
+    transition: all 0.2s ease-in;
 }
 
 .dropdown-content button:hover {
-    background-color: #005ba1;
+    /* background-color: #005ba1; */
+    background: rgb(61, 106, 255);
+    box-shadow: 0 0 30px 5px rgba(0, 142, 236, 0.815);
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out;
 }
 
 .show {
