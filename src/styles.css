@@ -34,7 +34,7 @@ button:hover {
     width: 100%;
     padding: 10px 20px;
     background-color: #0078D7;
-    color: white;
+    color: rgb(0, 0, 0);
     border: none;
     border-radius: 5px;
     cursor: pointer;
