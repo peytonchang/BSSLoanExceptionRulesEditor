@@ -24,13 +24,13 @@
                 const openDialogButton = document.getElementById('open-dialog-btn');
                 const openRulesConditions = document.getElementById('rulesConditions');
                 const openGoogleButton = document.getElementById('openUrl');
-                const openRemoteRules = document.getElementById('remoteRules');
+                // const openRemoteRules = document.getElementById('remoteRules');
                 const dropdown = document.getElementById('dropdown-button');
 
                 openDialogButton.addEventListener('click', openDialog);
                 openRulesConditions.addEventListener('click', rulesConditionsWindow);    
                 openGoogleButton.addEventListener('click', urlWindow); 
-                openRemoteRules.addEventListener('click', openRemoteRulesUI);
+                // openRemoteRules.addEventListener('click', openRemoteRulesUI);
                 dropdown.addEventListener('click', toggleDropdown);
             }
         }
