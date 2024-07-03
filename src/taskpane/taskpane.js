@@ -24,11 +24,13 @@
                 const openRulesConditions = document.getElementById('rulesConditions');
                 const openGoogleButton = document.getElementById('openUrl');
                 const openRemoteRules = document.getElementById('remoteRules');
+                const dropdown = document.getElementById('dropdown-button');
 
                 openDialogButton.addEventListener('click', openDialog);
                 openRulesConditions.addEventListener('click', rulesConditionsWindow);    
                 openGoogleButton.addEventListener('click', urlWindow); 
                 openRemoteRules.addEventListener('click', openRemoteRulesUI);
+                dropdown.addEventListener('click', toggleDropdown);
             }
         }
     }
@@ -83,6 +85,22 @@
     function openRemoteRulesUI() {
         if (!window.location.pathname.endsWith('remoteRulesHome.html')) {
             window.location.href = 'https://peytonchang.github.io/BSSLoanExceptionRulesEditor/src/taskpane/RemoteRules/remoteRulesHome.html';
+        }
+    }
+
+    function toggleDropdown() {
+        document.getElementById("dropdown-content").classList.toggle("show");
+    }
+
+    window.onclick = function(event) {
+        if (!event.target.matches('.dropbtn')) {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            for (var i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
         }
     }
 

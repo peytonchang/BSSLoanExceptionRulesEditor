@@ -28,7 +28,7 @@ button:hover {
     width: 100%; /* Makes each button full width of its container */
     padding: 10px 20px; /* Adds padding inside the buttons for better touch */
     margin-top: 10px; /* Adds top margin for spacing between buttons */
-    background-color: #0078D7; /* Sets a default blue color for buttons */
+    background-color: #d700a1; /* Sets a default blue color for buttons */
     color: white; /* White text for better readability */
     border: none; /* Removes default border */
     border-radius: 5px; /* Rounds the corners of the buttons */
@@ -38,7 +38,7 @@ button:hover {
 }
 
 .dropdown button:hover {
-    background-color: #005ba1;
+    background-color: #660a4f;
 }
 
 .dropdown .content {
