@@ -24,27 +24,55 @@ button:hover {
     background-color: #005ba1; /* Darker blue on hover for interactive feedback */
 }
 
-.dropdown button {
-    width: 100%; /* Makes each button full width of its container */
-    padding: 10px 20px; /* Adds padding inside the buttons for better touch */
-    margin-top: 10px; /* Adds top margin for spacing between buttons */
-    background-color: #d700a1; /* Sets a default blue color for buttons */
-    color: white; /* White text for better readability */
-    border: none; /* Removes default border */
-    border-radius: 5px; /* Rounds the corners of the buttons */
-    cursor: pointer; /* Changes cursor to pointer to indicate it's clickable */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Subtle shadow for 3D effect */
-    font-size: 16px; /* Increases the font size for better visibility */ 
+.dropdown {
+    position: relative;
+    display: inline-block;
+    width: 100%;
 }
 
-.dropdown button:hover {
-    background-color: #660a4f;
+.dropbtn {
+    width: 100%;
+    padding: 10px 20px;
+    background-color: #0078D7;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    font-size: 16px;
 }
 
-.dropdown .content {
+.dropbtn:hover {
+    background-color: #005ba1;
+}
+
+.dropdown-content {
     display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    z-index: 1;
+    width: 100%;
+    padding: 10px 0;
+    border-radius: 5px;
 }
 
-.dropdown button:hover .content {
+.dropdown-content button {
+    background-color: #0078D7;
+    color: white;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    margin: 0;
+    font-size: 16px;
+    width: 100%;
+}
+
+.dropdown-content button:hover {
+    background-color: #005ba1;
+}
+
+.show {
     display: block;
 }
