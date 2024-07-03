@@ -198,6 +198,10 @@ button {
 
 .container {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 10px; /* Space between buttons */
+    justify-content: space-evenly; /* Evenly space out the buttons */
+    height: 100%; /* Make the container take the full height of the body */
+    gap: 10px; /* Optional: additional space between buttons */
+    width: 100%; /* Optional: make container take full width */
 }
