@@ -3,6 +3,11 @@ body {
     font-family: Arial, sans-serif; /* Sets a clean, modern font for the body */
     padding: 20px; /* Adds padding around the content */
     background-color: #3c3c3c; /* Light grey background for slight contrast */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full height of the viewport */
+    margin: 0;
 }
 
 /* button {
@@ -97,6 +102,7 @@ button {
   
 
 
+
 .dropdown {
     position: relative;
     display: inline-block;
@@ -141,7 +147,7 @@ button {
 
 .dropdown-content {
     display: none;
-    position: absolute;
+    position: absolute; 
     background-color: #000000;
     min-width: 160px;
     box-shadow: 0 8px 16px rgba(0,0,0,0.2);
@@ -190,3 +196,9 @@ button {
     display: block;
 }
 
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px; /* Space between buttons */
+}
