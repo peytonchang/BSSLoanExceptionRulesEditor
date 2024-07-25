@@ -6,24 +6,42 @@
     <link rel="stylesheet" href="https://peytonchang.github.io/BSSLoanExceptionRulesEditor/src/styles.css">
 </head>
 <body>
-    <button id="open-dialog-btn">Open Dialog</button>
-    <button id="rulesConditions">Open Rules</button>  
-    <div id="content-container"></div>
-    <button id="openUrl">Load Content</button>
+    <div id="main-content">>
+        <button id="open-dialog-btn">Open Dialog</button>
+        <button id="rulesConditions">Open Rules</button>  
+        <div id="content-container"></div>
+        <button id="openUrl">Load Content</button>
 
-    <div class="dropdown">
-        <button id="dropdown-button" class="dropbtn">Remote Rules Dropdown</button>
-        <div id="dropdown-content" class="dropdown-content">
-            <button id="getAndDisplayLoanInputData">Get Loan Input Data</button>
-            <button id="executeRules">Execute Rules</button>
-            <button id="viewLoanInputData">View Loan Input Data</button>
-            <button id="viewResultsData">View Results Data</button>
-            <button id="executeRulesRawResults">Execute Rules (Raw Results)</button>
-            <button id="viewPricingResults">View Pricing Results</button>
+        <div class="dropdown">
+            <button id="dropdown-button" class="dropbtn">Remote Rules Dropdown</button>
+            <div id="dropdown-content" class="dropdown-content">
+                <button id="getAndDisplayLoanInputData">Get Loan Input Data</button>
+                <button id="executeRules">Execute Rules</button>
+                <button id="viewLoanInputData">View Loan Input Data</button>
+                <button id="viewResultsData">View Results Data</button>
+                <button id="executeRulesRawResults">Execute Rules (Raw Results)</button>
+                <button id="viewPricingResults">View Pricing Results</button>
+            </div>
         </div>
     </div>
 
+    <button id="openUrlContent">Load URL Content</button>
+
     <script src="taskpane.js"></script>
     <script src="https://peytonchang.github.io/BSSLoanExceptionRulesEditor/src/taskpane/RemoteRules/remoteRules.js"></script>
+    <script>
+        document.getElementById('openUrlContent').addEventListener('click', function() {
+            var mainContent = document.getElementById('main-content');
+            mainContent.style.display = 'none'; // Hide the main content
+
+            // Fetch and display new HTML content
+            fetch('https://bluesage-dev.bluesageusa.com/droolsrules/RuleEditor-Ex.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.body.innerHTML = html; // Replace the body's content with the fetched HTML
+                })
+                .catch(error => console.error('Error loading the HTML:', error));
+        });
+    </script>
 </body>
 </html>
