@@ -26,12 +26,14 @@
                 const openGoogleButton = document.getElementById('openUrl');
                 // const openRemoteRules = document.getElementById('remoteRules');
                 const dropdown = document.getElementById('dropdown-button');
+                const openUrlContent = document.getElementById('openUrlContent');
 
                 openDialogButton.addEventListener('click', openDialog);
                 openRulesConditions.addEventListener('click', rulesConditionsWindow);    
                 openGoogleButton.addEventListener('click', urlWindow); 
                 // openRemoteRules.addEventListener('click', openRemoteRulesUI);
                 dropdown.addEventListener('click', toggleDropdown);
+                openUrlContent.addEventListener('click', openRuleEditor);
             }
         }
     }
@@ -99,6 +101,21 @@
         if (!window.location.pathname.endsWith('dialog.html')) {
             window.location.href = 'https://peytonchang.github.io/BSSLoanExceptionRulesEditor/src/dialog.html';
         }
+    }
+
+    function openRuleEditor() {
+        document.getElementById('openUrlContent').addEventListener('click', function() {
+            var mainContent = document.getElementById('main-content');
+            mainContent.style.display = 'none'; // Hide the main content
+
+            // Fetch and display new HTML content
+            fetch('https://bluesage-dev.bluesageusa.com/droolsrules/RuleEditor-Ex.html')
+                .then(response => response.text())
+                .then(html => {
+                    // document.body.innerHTML = html; // Replace the body's content with the fetched HTML
+                })
+                .catch(error => console.error('Error loading the HTML:', error));
+        });
     }
 
     function openRemoteRulesUI() {
