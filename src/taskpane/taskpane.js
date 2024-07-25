@@ -49,20 +49,37 @@
         }
     }
 
-    function openDialog() {
+    async function openDialog() {
+        const url = 'https://bluesage-dev.bluesageusa.com/droolsrules/RuleEditor-Ex.html'; // Ensure this URL is correct
 
-        // const dialogUrl = 'https://bluesage-dev.bluesageusa.com/droolsrules/RuleEditor-Ex.html'; // Adjust as necessary
-        // Office.context.ui.displayDialogAsync(dialogUrl, { height: 50, width: 50 }, (result) => {
-        //     if (result.status === Office.AsyncResultStatus.Failed) {
-        //         console.error('Failed to open dialog: ' + result.error.message);
-        //     } else {
-        //         currentDialog = result.value;
-        //         console.log('Dialog opened successfully.');
-        //         currentDialog.addEventHandler(Office.EventType.DialogMessageReceived, processMessageFromDialog);
-        //         currentDialog.addEventHandler(Office.EventType.DialogEventReceived, handleDialogEvent);
-        //     }
-        // });
-        window.location.href = 'https://bluesage-dev.bluesageusa.com/droolsrules/RuleEditor-Ex.html';
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.text();
+            })
+            .then(htmlContent => {
+                const contentContainer = document.getElementById('content-container');
+                contentContainer.innerHTML = htmlContent; // Replace the content
+                // Optional: If you want to hide other elements, manage their visibility here
+            })
+            .catch(error => {
+                console.error('Failed to load rule conditions:', error);
+                document.getElementById('content-container').innerHTML = 'Failed to load content. Please try again later.';
+            });
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.text();
+                return data; // This returns the content as a string
+            } catch (error) {
+                console.error('Fetch error:', error);
+                return null; // Return null or handle the error as needed
+            }
+        
     }
   
     function handleDialogEvent(event) {
