@@ -51,17 +51,18 @@
 
     function openDialog() {
 
-        const dialogUrl = 'https://bluesage-dev.bluesageusa.com/droolsrules/RuleEditor-Ex.html'; // Adjust as necessary
-        Office.context.ui.displayDialogAsync(dialogUrl, { height: 50, width: 50 }, (result) => {
-            if (result.status === Office.AsyncResultStatus.Failed) {
-                console.error('Failed to open dialog: ' + result.error.message);
-            } else {
-                currentDialog = result.value;
-                console.log('Dialog opened successfully.');
-                currentDialog.addEventHandler(Office.EventType.DialogMessageReceived, processMessageFromDialog);
-                currentDialog.addEventHandler(Office.EventType.DialogEventReceived, handleDialogEvent);
-            }
-        });
+        // const dialogUrl = 'https://bluesage-dev.bluesageusa.com/droolsrules/RuleEditor-Ex.html'; // Adjust as necessary
+        // Office.context.ui.displayDialogAsync(dialogUrl, { height: 50, width: 50 }, (result) => {
+        //     if (result.status === Office.AsyncResultStatus.Failed) {
+        //         console.error('Failed to open dialog: ' + result.error.message);
+        //     } else {
+        //         currentDialog = result.value;
+        //         console.log('Dialog opened successfully.');
+        //         currentDialog.addEventHandler(Office.EventType.DialogMessageReceived, processMessageFromDialog);
+        //         currentDialog.addEventHandler(Office.EventType.DialogEventReceived, handleDialogEvent);
+        //     }
+        // });
+        window.location.href = 'https://bluesage-dev.bluesageusa.com/droolsrules/RuleEditor-Ex.html';
     }
   
     function handleDialogEvent(event) {
