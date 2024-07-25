@@ -109,7 +109,7 @@
             mainContent.style.display = 'none'; // Hide the main content
 
             // Fetch and display new HTML content
-            fetch('https://bluesage-dev.bluesageusa.com/droolsrules/RuleEditor-Ex.html')
+            fetch('https://peytonchang.github.io/BSSLoanExceptionRulesEditor/src/dialog.html')
                 .then(response => response.text())
                 .then(html => {
                     // document.body.innerHTML = html; // Replace the body's content with the fetched HTML

@@ -29,19 +29,6 @@
 
     <script src="taskpane.js"></script>
     <script src="https://peytonchang.github.io/BSSLoanExceptionRulesEditor/src/taskpane/RemoteRules/remoteRules.js"></script>
-    <script>
-        document.getElementById('openUrlContent').addEventListener('click', function() {
-            var mainContent = document.getElementById('main-content');
-            mainContent.style.display = 'none'; // Hide the main content
 
-            // Fetch and display new HTML content
-            fetch('https://bluesage-dev.bluesageusa.com/droolsrules/RuleEditor-Ex.html')
-                .then(response => response.text())
-                .then(html => {
-                    document.body.innerHTML = html; // Replace the body's content with the fetched HTML
-                })
-                .catch(error => console.error('Error loading the HTML:', error));
-        });
-    </script>
 </body>
 </html>
