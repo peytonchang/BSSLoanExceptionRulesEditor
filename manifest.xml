@@ -11,6 +11,7 @@
   <SupportUrl DefaultValue="https://peytonchang.github.io/BSSLoanExceptionRulesEditor/help"/>
   <AppDomains>
     <AppDomain>https://peytonchang.github.io/BSSLoanExceptionRulesEditor</AppDomain>
+    <AppDomain>https://bluesage-dev.bluesageusa.com/droolsrules</AppDomain>
   </AppDomains>
   <Hosts>
     <Host Name="Workbook"/>
