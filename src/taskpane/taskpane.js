@@ -51,7 +51,7 @@
 
     function openDialog() {
 
-        const dialogUrl = 'https://peytonchang.github.io/BSSLoanExceptionRulesEditor/src/dialog.html'; // Adjust as necessary
+        const dialogUrl = 'https://bluesage-dev.bluesageusa.com/droolsrules/RuleEditor-Ex.html'; // Adjust as necessary
         Office.context.ui.displayDialogAsync(dialogUrl, { height: 50, width: 50 }, (result) => {
             if (result.status === Office.AsyncResultStatus.Failed) {
                 console.error('Failed to open dialog: ' + result.error.message);
